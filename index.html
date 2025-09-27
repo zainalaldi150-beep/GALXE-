@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PIXp — Token & Whitepaper</title>
+  <meta name="description" content="Landing page contoh: token allocation, connect wallet, whitepaper." />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="PIXp — Token & Whitepaper">
+  <meta property="og:description" content="Contoh landing page Web3 dengan token allocation dan connect wallet.">
+  <meta property="og:image" content="https://pixp.space/og-image.png">
+  <meta property="og:url" content="https://pixp.space">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Content Security Policy (basic meta example; prefer setting on server for production) -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; img-src 'self' data: https:; script-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; connect-src 'self' https://mainnet.infura.io https://rinkeby.infura.io wss: https://*.etherscan.io;">
+  
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Chart.js & Ethers (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <img src="assets/logo.png" alt="Logo" class="logo">
+      <nav>
+        <a href="#token">Token</a>
+        <a href="#whitepaper">Whitepaper</a>
+        <a href="#contract">Kontrak</a>
+      </nav>
+      <button id="connectBtn" class="btn">Connect Wallet</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero" class="hero container">
+      <h1>PIXp — Token Allocation & Info</h1>
+      <p>Contoh minimal landing page dengan token allocation chart dan kemampuan connect wallet.</p>
+      <a href="#token" class="btn">Lihat Token</a>
+    </section>
+
+    <section id="token" class="container card">
+      <h2>Token Allocation</h2>
+      <div class="grid">
+        <div>
+          <canvas id="tokenChart" width="400" height="300"></canvas>
+        </div>
+        <div>
+          <ul id="allocationList" class="allocation-list"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="contract" class="container card">
+      <h2>Kontrak</h2>
+      <p>Contoh baca totalSupply (ERC-20) — masukkan alamat kontrak publik:</p>
+      <input id="contractAddress" placeholder="0x..." class="input"/>
+      <button id="readBtn" class="btn">Baca totalSupply</button>
+      <p id="contractOutput" class="muted"></p>
+    </section>
+
+    <section id="whitepaper" class="container card">
+      <h2>Whitepaper</h2>
+      <p>Download whitepaper: <a href="assets/whitepaper.pdf" target="_blank" rel="noopener">whitepaper.pdf</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer container">
+    <small>© <span id="year"></span> PIXp — Tidak menyimpan private key. Hanya untuk demo.</small>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
