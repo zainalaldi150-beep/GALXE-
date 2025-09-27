@@ -1,1 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Galxe Clone - Web3 Growth Platform</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav-container">
+      <div class="logo">
+        <i class="fas fa-rocket logo-icon"></i>
+        Galxe
+      </div>
+      <!-- Nav menu hidden, appears with hamburger -->
+      <nav class="nav-links">
+        <a href="#">Products</a>
+        <a href="#">Solutions</a>
+        <a href="#">Developers</a>
+        <a href="#">Resources</a>
+        <a href="#">Pricing</a>
+      </nav>
+      <div class="nav-buttons">
+        <button class="cta-button">Get Started</button>
+        <button class="mobile-menu-btn">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
 
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1>Why the Top Brands in <span class="highlight">Web3 Choose Galxe</span></h1>
+      <p>Galxe is more than a platform—it's your growth engine. With a full-stack suite built for performance, we help web3 teams launch faster, grow smarter, and build stronger connections across the ecosystem.</p>
+      <div class="hero-buttons">
+        <button class="cta-button">Explore Platform</button>
+        <button class="secondary-button">Watch Demo</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-number">10M+</div>
+          <div class="stat-label">Active Users</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">2,500+</div>
+          <div class="stat-label">Projects</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">$500M+</div>
+          <div class="stat-label">Ecosystem Value</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">98%</div>
+          <div class="stat-label">Satisfaction Rate</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+    <div class="container">
+      <h2 class="section-title">Full-Stack Web3 Growth Suite</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🚀</div>
+          <h3 class="feature-title">Launch Faster</h3>
+          <p class="feature-desc">Accelerate your product launch with our comprehensive toolkit designed specifically for web3 projects.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📈</div>
+          <h3 class="feature-title">Grow Smarter</h3>
+          <p class="feature-desc">Leverage data-driven insights and community engagement tools to scale your project effectively.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔗</div>
+          <h3 class="feature-title">Build Connections</h3>
+          <p class="feature-desc">Create meaningful interactions and foster loyalty within your community across the ecosystem.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community -->
+  <section class="community">
+    <div class="container">
+      <div class="community-content">
+        <h2 class="section-title">Join Our Community</h2>
+        <p>Connect with thousands of web3 enthusiasts, developers, and innovators in our vibrant community.</p>
+        <div class="community-icons">
+          <a href="#" class="community-icon twitter-community">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="community-icon telegram-community">
+            <i class="fab fa-telegram-plane"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4 class="footer-title">Galxe</h4>
+          <p>Your web3 growth engine.</p>
+          <div class="footer-social">
+            <a href="#" class="social-icon twitter-icon">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="social-icon telegram-icon">
+              <i class="fab fa-telegram-plane"></i>
+            </a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h4 class="footer-title">Products</h4>
+          <ul class="footer-links">
+            <li><a href="#">Campaigns</a></li>
+            <li><a href="#">Credentials</a></li>
+            <li><a href="#">Galxe ID</a></li>
+            <li><a href="#">Galxe Passport</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4 class="footer-title">Resources</h4>
+          <ul class="footer-links">
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Community</a></li>
+            <li><a href="#">Support</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4 class="footer-title">Company</h4>
+          <ul class="footer-links">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Partners</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        &copy; 2023 Galxe. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+      const navLinks = document.querySelector(".nav-links");
+
+      mobileMenuBtn.addEventListener("click", function() {
+        if (navLinks.style.display === "flex") {
+          navLinks.style.display = "none";
+        } else {
+          navLinks.style.display = "flex";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
