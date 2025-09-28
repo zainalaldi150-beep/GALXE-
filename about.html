@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About $PIXP - Pixel Puffin</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #ec4899;
+            --accent-color: #f59e0b;
+            --dark-bg: #0f0f23;
+            --darker-bg: #050507;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark-bg);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        .font-orbitron {
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-gray-900/80 backdrop-blur-md border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold gradient-text font-orbitron">PIXEL PUFFIN</h1>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors">Home</a>
+                        <a href="about.html" class="text-white px-3 py-2 text-sm font-medium">About</a>
+                        <a href="roadmap.html" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors">Roadmap</a>
+                        <a href="tokenomics.html" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors">Tokenomics</a>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full font-semibold hover:opacity-90 transition-opacity">
+                        Join Presale
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 bg-gradient-to-br from-purple-900/20 to-pink-900/20">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h1 class="text-5xl md:text-7xl font-black gradient-text mb-6">About $PIXP</h1>
+            <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                The Revolutionary DeFi 3.0 Token That Bridges Meme Culture with Real Financial Utility
+            </p>
+        </div>
+    </section>
+
+    <!-- About Content -->
+    <section class="py-20 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid lg:grid-cols-2 gap-12 items-center mb-20">
+                <div>
+                    <h2 class="text-4xl font-bold mb-6">What is Pixel Puffin?</h2>
+                    <p class="text-gray-300 text-lg mb-6">
+                        Pixel Puffin ($PIXP) represents the next evolution in cryptocurrency, combining the viral power of meme culture with sophisticated DeFi 3.0 functionality. Built on Binance Smart Chain with Chainlink oracle integration, $PIXP is designed to create sustainable value through innovative tokenomics and real-world utility.
+                    </p>
+                    <p class="text-gray-300 text-lg mb-6">
+                        Unlike traditional meme coins that rely solely on hype, $PIXP introduces groundbreaking features including dynamic deflation mechanisms, on-chain rewards, and a comprehensive ecosystem of DeFi products that generate actual revenue for token holders.
+                    </p>
+                    <p class="text-gray-300 text-lg">
+                        Our mission is to democratize access to advanced DeFi protocols while maintaining the community-driven spirit that makes meme culture so powerful in the crypto space.
+                    </p>
+                </div>
+                <div class="card-hover bg-gray-800 p-8 rounded-2xl border border-gray-700">
+                    <h3 class="text-2xl font-bold mb-6 gradient-text">Key Statistics</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-400">Blockchain</span>
+                            <span class="font-semibold">Binance Smart Chain</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-400">Token Standard</span>
+                            <span class="font-semibold">BEP-20</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-400">Total Supply</span>
+                            <span class="font-semibold">1,000,000,000 PIXP</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-400">Oracle Integration</span>
+                            <span class="font-semibold">Chainlink BTC Feed</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-400">Launch Date</span>
+                            <span class="font-semibold">June 11, 2025</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Features -->
+    <section class="py-20 bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Core Innovation</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Three pillars that make $PIXP revolutionary in the DeFi space
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card-hover bg-gray-900 p-8 rounded-2xl border border-gray-700 text-center">
+                    <div class="w-20 h-20 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Dynamic Deflation</h3>
+                    <p class="text-gray-400 mb-4">
+                        Automatic burning and taxes triggered only when supply exceeds Bitcoin's scarcity model. Machine-level dynamic logic that adjusts to market conditions.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• BTC-inspired deflation mechanism</li>
+                        <li>• Automatic supply adjustment</li>
+                        <li>• Market-responsive burning</li>
+                    </ul>
+                </div>
+                
+                <div class="card-hover bg-gray-900 p-8 rounded-2xl border border-gray-700 text-center">
+                    <div class="w-20 h-20 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2h12v8H4V6z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">On-Chain Rewards</h3>
+                    <p class="text-gray-400 mb-4">
+                        Earn WBNB rewards for swapping, adding liquidity, and burning $PIXP. First implementation of direct on-chain compensation for active participants.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• WBNB reward distribution</li>
+                        <li>• Liquidity provider incentives</li>
+                        <li>• Active participant rewards</li>
+                    </ul>
+                </div>
+                
+                <div class="card-hover bg-gray-900 p-8 rounded-2xl border border-gray-700 text-center">
+                    <div class="w-20 h-20 bg-gradient-to-r from-yellow-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Real World Utility</h3>
+                    <p class="text-gray-400 mb-4">
+                        Complete ecosystem including Puffin Swap DEX, Crypto Wallet, and Web3 e-travel dApp (Pixtrip) that generates real revenue for token holders.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-1">
+                        <li>• Puffin Swap DEX</li>
+                        <li>• Integrated crypto wallet</li>
+                        <li>• Web3 travel platform</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Stack -->
+    <section class="py-20 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold gradient-text mb-6">Technology Stack</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Built with enterprise-grade technology for maximum security and scalability
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="card-hover bg-gray-800 p-6 rounded-xl border border-gray-700 text-center">
+                    <div class="w-16 h-16 bg-purple-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl font-bold">BSC</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Binance Smart Chain</h3>
+                    <p class="text-gray-400 text-sm">High-performance blockchain with low transaction costs and fast confirmation times</p>
+                </div>
+                
+                <div class="card-hover bg-gray-800 p-6 rounded-xl border border-gray-700 text-center">
+                    <div class="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl font-bold">CL</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Chainlink Oracle</h3>
+                    <p class="text-gray-400 text-sm">Secure and reliable price feeds for dynamic tokenomics and market data</p>
+                </div>
+                
+                <div class="card-hover bg-gray-800 p-6 rounded-xl border border-gray-700 text-center">
+                    <div class="w-16 h-16 bg-green-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl font-bold">SC</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Smart Contracts</h3>
+                    <p class="text-gray-400 text-sm">Audited, secure contracts with advanced features like trading controls and blacklists</p>
+                </div>
+                
+                <div class="card-hover bg-gray-800 p-6 rounded-xl border border-gray-700 text-center">
+                    <div class="w-16 h-16 bg-pink-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl font-bold">DEX</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Puffin Swap</h3>
+                    <p class="text-gray-400 text-sm">Native decentralized exchange with advanced liquidity mechanisms and rewards</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="py-20 bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Meet the Team</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Experienced professionals from blockchain, DeFi, and traditional finance
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="card-hover bg-gray-900 p-8 rounded-2xl border border-gray-700 text-center">
+                    <div class="w-24 h-24 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-3xl font-bold">JD</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">John Doe</h3>
+                    <p class="text-purple-400 mb-4">CEO & Lead Developer</p>
+                    <p class="text-gray-400 text-sm">
+                        10+ years in blockchain development, former lead engineer at major DeFi protocols
+                    </p>
+                </div>
+                
+                <div class="card-hover bg-gray-900 p-8 rounded-2xl border border-gray-700 text-center">
+                    <div class="w-24 h-24 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-3xl font-bold">JS</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Jane Smith</h3>
+                    <p class="text-green-400 mb-4">CTO & Smart Contract Architect</p>
+                    <p class="text-gray-400 text-sm">
+                        Smart contract security expert, audited 100+ DeFi protocols, PhD in Computer Science
+                    </p>
+                </div>
+                
+                <div class="card-hover bg-gray-900 p-8 rounded-2xl border border-gray-700 text-center">
+                    <div class="w-24 h-24 bg-gradient-to-r from-yellow-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-3xl font-bold">MJ</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Mike Johnson</h3>
+                    <p class="text-yellow-400 mb-4">Head of Marketing</p>
+                    <p class="text-gray-400 text-sm">
+                        Former marketing director at top crypto exchanges, 8+ years in digital marketing
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold gradient-text font-orbitron mb-4">PIXEL PUFFIN</h3>
+                <p class="text-gray-400 max-w-2xl mx-auto">
+                    The future of DeFi 3.0 is here. Join the revolution that combines meme culture with real financial utility.
+                </p>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8">
+                <p class="text-gray-500">
+                    © 2025 Pixel Puffin. All rights reserved. Built for the Web3 revolution.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize scroll animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const element = entry.target;
+                        
+                        if (element.classList.contains('card-hover')) {
+                            anime({
+                                targets: element,
+                                translateY: [50, 0],
+                                opacity: [0, 1],
+                                scale: [0.9, 1],
+                                duration: 800,
+                                delay: anime.stagger(200),
+                                easing: 'easeOutQuad'
+                            });
+                        }
+                        
+                        observer.unobserve(element);
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.card-hover').forEach(el => {
+                el.style.opacity = '0';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
