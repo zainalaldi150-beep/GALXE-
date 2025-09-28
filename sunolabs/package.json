@@ -1,0 +1,33 @@
+{
+  "name": "sunolabs-website",
+  "version": "1.0.0",
+  "description": "Modern responsive website for Suno Labs - Technology Innovation Hub",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx live-server --port=3000 --open=/index.html",
+    "dev": "npx live-server --port=3000 --open=/index.html --watch=css,js,img",
+    "build": "echo 'Build process would go here'",
+    "test": "echo 'Tests would go here'"
+  },
+  "keywords": [
+    "website",
+    "technology",
+    "AI",
+    "web-development",
+    "responsive",
+    "modern"
+  ],
+  "author": "Suno Labs Team",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sunolabs/website.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sunolabs/website/issues"
+  },
+  "homepage": "https://sunolabs.co"
+}

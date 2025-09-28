@@ -1,0 +1,47 @@
+# Placeholder Images for Suno Labs Website
+
+This directory should contain the following images:
+
+## Portfolio Images (350x250px recommended):
+- portfolio-1.jpg - E-commerce Platform screenshot
+- portfolio-2.jpg - Fitness App mobile interface
+- portfolio-3.jpg - AI Chatbot interface
+- portfolio-4.jpg - Corporate Website homepage
+- portfolio-5.jpg - Banking App mobile interface
+- portfolio-6.jpg - Analytics Dashboard
+
+## Logo and Branding:
+- logo.png - Suno Labs logo (200x60px)
+- favicon.ico - Website favicon (32x32px)
+
+## Hero Section:
+- hero-bg.jpg - Background image for hero section (1920x1080px)
+
+## About Section:
+- team-photo.jpg - Team photo (800x600px)
+- office-photo.jpg - Office space photo (800x600px)
+
+## Service Icons (80x80px):
+- ai-icon.png
+- mobile-icon.png
+- web-icon.png
+- cloud-icon.png
+- data-icon.png
+- security-icon.png
+
+## Background Images:
+- about-bg.jpg - Background for about section
+- services-bg.jpg - Background for services section
+- contact-bg.jpg - Background for contact section
+
+## Recommended Image Sources:
+- Unsplash.com for high-quality stock photos
+- Pexels.com for free stock images
+- Freepik.com for icons and graphics
+- Canva.com for creating custom graphics
+
+## Image Optimization:
+- Use WebP format for better compression
+- Compress images to reduce file size
+- Use appropriate dimensions for each use case
+- Consider using CSS gradients as fallbacks
