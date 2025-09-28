@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadmap - Pixel Puffin</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #ec4899;
+            --accent-color: #f59e0b;
+            --dark-bg: #0f0f23;
+            --darker-bg: #050507;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark-bg);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        .font-orbitron {
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .timeline-item {
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-item:hover {
+            transform: translateX(10px);
+        }
+        
+        .timeline-line {
+            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-gray-900/80 backdrop-blur-md border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold gradient-text font-orbitron">PIXEL PUFFIN</h1>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors">Home</a>
+                        <a href="about.html" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors">About</a>
+                        <a href="roadmap.html" class="text-white px-3 py-2 text-sm font-medium">Roadmap</a>
+                        <a href="tokenomics.html" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors">Tokenomics</a>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full font-semibold hover:opacity-90 transition-opacity">
+                        Join Presale
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 bg-gradient-to-br from-purple-900/20 to-pink-900/20">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h1 class="text-5xl md:text-7xl font-black gradient-text mb-6">Development Roadmap</h1>
+            <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                Our strategic timeline for building the future of DeFi 3.0
+            </p>
+        </div>
+    </section>
+
+    <!-- Roadmap Timeline -->
+    <section class="py-20 bg-gray-900">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="relative">
+                <!-- Timeline Line -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 w-1 h-full timeline-line rounded-full"></div>
+                
+                <!-- Q2 2025 -->
+                <div class="timeline-item relative mb-16">
+                    <div class="flex items-center">
+                        <div class="w-1/2 pr-8 text-right">
+                            <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700">
+                                <div class="text-purple-400 font-bold text-sm mb-2">Q2 2025</div>
+                                <h3 class="text-2xl font-bold mb-4">Project Launch & Presale</h3>
+                                <ul class="text-gray-400 space-y-2">
+                                    <li class="flex items-center justify-end">
+                                        <span>Smart contract deployment</span>
+                                        <svg class="w-4 h-4 text-green-400 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </li>
+                                    <li class="flex items-center justify-end">
+                                        <span>Chainlink oracle integration</span>
+                                        <svg class="w-4 h-4 text-green-400 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </li>
+                                    <li class="flex items-center justify-end">
+                                        <span>Presale launch (June 11, 2025)</span>
+                                        <svg class="w-4 h-4 text-green-400 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </li>
+                                    <li class="flex items-center justify-end">
+                                        <span>Community building</span>
+                                        <svg class="w-4 h-4 text-green-400 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="w-8 h-8 bg-purple-600 rounded-full border-4 border-gray-900 flex items-center justify-center relative z-10">
+                            <span class="text-white font-bold text-sm">1</span>
+                        </div>
+                        <div class="w-1/2 pl-8"></div>
+                    </div>
+                </div>
+                
+                <!-- Q3 2025 -->
+                <div class="timeline-item relative mb-16">
+                    <div class="flex items-center">
+                        <div class="w-1/2 pr-8"></div>
+                        <div class="w-8 h-8 bg-pink-600 rounded-full border-4 border-gray-900 flex items-center justify-center relative z-10">
+                            <span class="text-white font-bold text-sm">2</span>
+                        </div>
+                        <div class="w-1/2 pl-8">
+                            <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700">
+                                <div class="text-pink-400 font-bold text-sm mb-2">Q3 2025</div>
+                                <h3 class="text-2xl font-bold mb-4">Puffin Swap DEX Launch</h3>
+                                <ul class="text-gray-400 space-y-2">
+                                    <li class="flex items-center">
+                                        <svg class="w-4 h-4 text-gray-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span>DEX platform development</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <svg class="w-4 h-4 text-gray-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span>Liquidity pool implementation</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <svg class="w-4 h-4 text-gray-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span>Staking mechanisms</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <svg class="w-4 h-4 text-gray-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span>Yield farming features</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q4 2025 -->
+                <div class="timeline-item relative mb-16">
+                    <div class="flex items-center">
+                        <div class="w-1/2 pr-8 text-right">
+                            <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700">
+                                <div class="text-blue-400 font-bold text-sm mb-2">Q4 2025</div>
+                                <h3 class="text-2xl font-bold mb-4">Crypto Wallet & Mobile App</h3>
+                                <ul class="text-gray-400 space-y-2">
+                                    <li class="flex items-center justify-end">
+                                        <span>Multi-chain wallet development</span>
+                                        <svg class="w-4 h-4 text-gray-500 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </li>
+                                    <li class="flex items-center justify-end">
+                                        <span>Mobile app (iOS/Android)</span>
+                                        <svg class="w-4 h-4 text-gray-500 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </li>
+                                    <li class="flex items-center justify-end">
+                                        <span>NFT integration</span>
+                                        <svg class="w-4 h-4 text-gray-500 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </li>
+                                    <li class="flex items-center justify-end">
+                                        <span>DeFi portfolio tracking</span>
+                                        <svg class="w-4 h-4 text-gray-500 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="w-8 h-8 bg-blue-600 rounded-full border-4 border-gray-900 flex items-center justify-center relative z-10">
+                            <span class="text-white font-bold text-sm">3</span>
+                        </div>
+                        <div class="w-1/2 pl-8"></div>
+                    </div>
+                </div>
+                
+                <!-- Q1 2026 -->
+                <div class="timeline-item relative mb-16">
+                    <div class="flex items-center">
+                        <div class="w-1/2 pr-8"></div>
+                        <div class="w-8 h-8 bg-green-600 rounded-full border-4 border-gray-900 flex items-center justify-center relative z-10">
+                            <span class="text-white font-bold text-sm">4</span>
+                        </div>
+                        <div class="w-1/2 pl-8">
+                            <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700">
+                                <div class="text-green-400 font-bold text-sm mb-2">Q1 2026</div>
+                                <h3 class="text-2xl font-bold mb-4">Pixtrip Travel dApp</h3>
+                                <ul class="text-gray-400 space-y-2">
+                                    <li class="flex items-center">
+                                        <svg class="w-4 h-4 text-gray-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span>Web3 travel platform</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <svg class="w-4 h-4 text-gray-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span>Crypto payment integration</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <svg class="w-4 h-4 text-gray-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span>Travel booking with crypto</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <svg class="w-4 h-4 text-gray-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span>Reward system for travelers</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q2 2026 -->
+                <div class="timeline-item relative">
+                    <div class="flex items-center">
+                        <div class="w-1/2 pr-8 text-right">
+                            <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700">
+                                <div class="text-yellow-400 font-bold text-sm mb-2">Q2 2026</div>
+                                <h3 class="text-2xl font-bold mb-4">Global Expansion</h3>
+                                <ul class="text-gray-400 space-y-2">
+                                    <li class="flex items-center justify-end">
+                                        <span>Multi-chain deployment</span>
+                                        <svg class="w-4 h-4 text-gray-500 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </li>
+                                    <li class="flex items-center justify-end">
+                                        <span>Partnership integrations</span>
+                                        <svg class="w-4 h-4 text-gray-500 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </li>
+                                    <li class="flex items-center justify-end">
+                                        <span>Institutional adoption</span>
+                                        <svg class="w-4 h-4 text-gray-500 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </li>
+                                    <li class="flex items-center justify-end">
+                                        <span>Advanced DeFi features</span>
+                                        <svg class="w-4 h-4 text-gray-500 ml-2" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="w-8 h-8 bg-yellow-600 rounded-full border-4 border-gray-900 flex items-center justify-center relative z-10">
+                            <span class="text-white font-bold text-sm">5</span>
+                        </div>
+                        <div class="w-1/2 pl-8"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Progress Indicators -->
+    <section class="py-20 bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Current Progress</h2>
+                <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                    Real-time development status and milestones achieved
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-gray-900 p-6 rounded-2xl border border-gray-700 text-center">
+                    <div class="w-20 h-20 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl font-bold text-white">85%</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Smart Contract</h3>
+                    <p class="text-gray-400 text-sm">Development and testing phase</p>
+                </div>
+                
+                <div class="bg-gray-900 p-6 rounded-2xl border border-gray-700 text-center">
+                    <div class="w-20 h-20 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl font-bold text-white">70%</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">DEX Platform</h3>
+                    <p class="text-gray-400 text-sm">Core infrastructure complete</p>
+                </div>
+                
+                <div class="bg-gray-900 p-6 rounded-2xl border border-gray-700 text-center">
+                    <div class="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl font-bold text-white">60%</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Mobile Wallet</h3>
+                    <p class="text-gray-400 text-sm">UI/UX design in progress</p>
+                </div>
+                
+                <div class="bg-gray-900 p-6 rounded-2xl border border-gray-700 text-center">
+                    <div class="w-20 h-20 bg-gradient-to-r from-yellow-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl font-bold text-white">40%</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Travel dApp</h3>
+                    <p class="text-gray-400 text-sm">Planning and architecture phase</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold gradient-text font-orbitron mb-4">PIXEL PUFFIN</h3>
+                <p class="text-gray-400 max-w-2xl mx-auto">
+                    The future of DeFi 3.0 is here. Join the revolution that combines meme culture with real financial utility.
+                </p>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8">
+                <p class="text-gray-500">
+                    © 2025 Pixel Puffin. All rights reserved. Built for the Web3 revolution.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize scroll animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const element = entry.target;
+                        
+                        if (element.classList.contains('timeline-item')) {
+                            anime({
+                                targets: element,
+                                translateX: [element.classList.contains('text-right') ? -50 : 50, 0],
+                                opacity: [0, 1],
+                                duration: 800,
+                                delay: anime.stagger(300),
+                                easing: 'easeOutQuad'
+                            });
+                        }
+                        
+                        observer.unobserve(element);
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.timeline-item').forEach(el => {
+                el.style.opacity = '0';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
