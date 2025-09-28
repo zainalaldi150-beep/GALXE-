@@ -1,0 +1,412 @@
+(cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF'
+diff --git a/sunolabs/index.html b/sunolabs/index.html
+--- a/sunolabs/index.html
++++ b/sunolabs/index.html
+@@ -0,0 +1,407 @@
++<!DOCTYPE html>
++<html lang="id">
++<head>
++    <meta charset="UTF-8">
++    <meta name="viewport" content="width=device-width, initial-scale=1.0">
++    <meta name="description" content="Suno Labs - Solusi Teknologi Inovatif untuk Masa Depan">
++    <meta name="keywords" content="teknologi, inovasi, AI, machine learning, software development">
++    <title>Suno Labs - Technology Innovation Hub</title>
++    
++    <!-- Fonts -->
++    <link rel="preconnect" href="https://fonts.googleapis.com">
++    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
++    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
++    
++    <!-- CSS -->
++    <link rel="stylesheet" href="css/style.css">
++    
++    <!-- Font Awesome -->
++    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
++</head>
++<body>
++    <!-- Navigation -->
++    <nav class="navbar">
++        <div class="nav-container">
++            <div class="nav-logo">
++                <a href="#home">
++                    <span class="logo-text">Suno</span>
++                    <span class="logo-accent">Labs</span>
++                </a>
++            </div>
++            <div class="nav-menu" id="nav-menu">
++                <a href="#home" class="nav-link">Home</a>
++                <a href="#about" class="nav-link">About</a>
++                <a href="#services" class="nav-link">Services</a>
++                <a href="#portfolio" class="nav-link">Portfolio</a>
++                <a href="#contact" class="nav-link">Contact</a>
++            </div>
++            <div class="nav-toggle" id="nav-toggle">
++                <span class="bar"></span>
++                <span class="bar"></span>
++                <span class="bar"></span>
++            </div>
++        </div>
++    </nav>
++
++    <!-- Hero Section -->
++    <section id="home" class="hero">
++        <div class="hero-container">
++            <div class="hero-content">
++                <h1 class="hero-title">
++                    <span class="title-line">Innovating the Future</span>
++                    <span class="title-line">with Technology</span>
++                </h1>
++                <p class="hero-description">
++                    Suno Labs adalah pusat inovasi teknologi yang mengembangkan solusi canggih 
++                    untuk mengatasi tantangan masa depan. Kami menggabungkan kecerdasan buatan, 
++                    machine learning, dan teknologi terdepan untuk menciptakan produk yang 
++                    mengubah dunia.
++                </p>
++                <div class="hero-buttons">
++                    <a href="#services" class="btn btn-primary">Explore Services</a>
++                    <a href="#contact" class="btn btn-secondary">Get Started</a>
++                </div>
++            </div>
++            <div class="hero-visual">
++                <div class="hero-graphic">
++                    <div class="floating-card card-1">
++                        <i class="fas fa-brain"></i>
++                        <span>AI Solutions</span>
++                    </div>
++                    <div class="floating-card card-2">
++                        <i class="fas fa-code"></i>
++                        <span>Development</span>
++                    </div>
++                    <div class="floating-card card-3">
++                        <i class="fas fa-chart-line"></i>
++                        <span>Analytics</span>
++                    </div>
++                </div>
++            </div>
++        </div>
++    </section>
++
++    <!-- About Section -->
++    <section id="about" class="about">
++        <div class="container">
++            <div class="section-header">
++                <h2 class="section-title">About Suno Labs</h2>
++                <p class="section-subtitle">Mengapa memilih kami sebagai partner teknologi Anda</p>
++            </div>
++            <div class="about-content">
++                <div class="about-text">
++                    <h3>Visi Kami</h3>
++                    <p>
++                        Menjadi perusahaan teknologi terdepan yang mengubah cara dunia bekerja 
++                        melalui inovasi dan solusi yang berkelanjutan. Kami percaya bahwa 
++                        teknologi harus memudahkan kehidupan manusia dan menciptakan dampak positif.
++                    </p>
++                    <h3>Misi Kami</h3>
++                    <p>
++                        Mengembangkan produk dan layanan teknologi yang inovatif, memberikan 
++                        solusi yang efisien dan efektif, serta membangun ekosistem teknologi 
++                        yang berkelanjutan untuk masa depan yang lebih baik.
++                    </p>
++                </div>
++                <div class="about-stats">
++                    <div class="stat-item">
++                        <div class="stat-number">50+</div>
++                        <div class="stat-label">Projects Completed</div>
++                    </div>
++                    <div class="stat-item">
++                        <div class="stat-number">25+</div>
++                        <div class="stat-label">Happy Clients</div>
++                    </div>
++                    <div class="stat-item">
++                        <div class="stat-number">5+</div>
++                        <div class="stat-label">Years Experience</div>
++                    </div>
++                    <div class="stat-item">
++                        <div class="stat-number">99%</div>
++                        <div class="stat-label">Client Satisfaction</div>
++                    </div>
++                </div>
++            </div>
++        </div>
++    </section>
++
++    <!-- Services Section -->
++    <section id="services" class="services">
++        <div class="container">
++            <div class="section-header">
++                <h2 class="section-title">Our Services</h2>
++                <p class="section-subtitle">Solusi teknologi komprehensif untuk kebutuhan bisnis Anda</p>
++            </div>
++            <div class="services-grid">
++                <div class="service-card">
++                    <div class="service-icon">
++                        <i class="fas fa-robot"></i>
++                    </div>
++                    <h3>Artificial Intelligence</h3>
++                    <p>Pengembangan solusi AI yang cerdas untuk otomasi dan analisis data yang mendalam.</p>
++                    <ul class="service-features">
++                        <li>Machine Learning Models</li>
++                        <li>Natural Language Processing</li>
++                        <li>Computer Vision</li>
++                        <li>Predictive Analytics</li>
++                    </ul>
++                </div>
++                <div class="service-card">
++                    <div class="service-icon">
++                        <i class="fas fa-mobile-alt"></i>
++                    </div>
++                    <h3>Mobile Development</h3>
++                    <p>Aplikasi mobile yang responsif dan performa tinggi untuk iOS dan Android.</p>
++                    <ul class="service-features">
++                        <li>Native iOS/Android Apps</li>
++                        <li>Cross-platform Solutions</li>
++                        <li>UI/UX Design</li>
++                        <li>App Store Optimization</li>
++                    </ul>
++                </div>
++                <div class="service-card">
++                    <div class="service-icon">
++                        <i class="fas fa-globe"></i>
++                    </div>
++                    <h3>Web Development</h3>
++                    <p>Website dan aplikasi web modern dengan teknologi terdepan dan performa optimal.</p>
++                    <ul class="service-features">
++                        <li>Responsive Design</li>
++                        <li>Progressive Web Apps</li>
++                        <li>E-commerce Solutions</li>
++                        <li>SEO Optimization</li>
++                    </ul>
++                </div>
++                <div class="service-card">
++                    <div class="service-icon">
++                        <i class="fas fa-cloud"></i>
++                    </div>
++                    <h3>Cloud Solutions</h3>
++                    <p>Infrastruktur cloud yang scalable dan aman untuk mendukung pertumbuhan bisnis.</p>
++                    <ul class="service-features">
++                        <li>Cloud Migration</li>
++                        <li>DevOps Implementation</li>
++                        <li>Security & Compliance</li>
++                        <li>24/7 Monitoring</li>
++                    </ul>
++                </div>
++                <div class="service-card">
++                    <div class="service-icon">
++                        <i class="fas fa-database"></i>
++                    </div>
++                    <h3>Data Analytics</h3>
++                    <p>Analisis data yang mendalam untuk insights bisnis dan pengambilan keputusan.</p>
++                    <ul class="service-features">
++                        <li>Data Visualization</li>
++                        <li>Business Intelligence</li>
++                        <li>Real-time Dashboards</li>
++                        <li>Data Mining</li>
++                    </ul>
++                </div>
++                <div class="service-card">
++                    <div class="service-icon">
++                        <i class="fas fa-shield-alt"></i>
++                    </div>
++                    <h3>Cybersecurity</h3>
++                    <p>Perlindungan data dan sistem yang komprehensif dengan teknologi keamanan terdepan.</p>
++                    <ul class="service-features">
++                        <li>Security Audits</li>
++                        <li>Penetration Testing</li>
++                        <li>Compliance Management</li>
++                        <li>Incident Response</li>
++                    </ul>
++                </div>
++            </div>
++        </div>
++    </section>
++
++    <!-- Portfolio Section -->
++    <section id="portfolio" class="portfolio">
++        <div class="container">
++            <div class="section-header">
++                <h2 class="section-title">Our Portfolio</h2>
++                <p class="section-subtitle">Proyek-proyek terbaik yang telah kami selesaikan</p>
++            </div>
++            <div class="portfolio-filter">
++                <button class="filter-btn active" data-filter="all">All Projects</button>
++                <button class="filter-btn" data-filter="web">Web Development</button>
++                <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
++                <button class="filter-btn" data-filter="ai">AI Solutions</button>
++            </div>
++            <div class="portfolio-grid">
++                <div class="portfolio-item" data-category="web">
++                    <div class="portfolio-image">
++                        <img src="img/portfolio-1.jpg" alt="E-commerce Platform">
++                        <div class="portfolio-overlay">
++                            <h3>E-commerce Platform</h3>
++                            <p>Modern online store with AI-powered recommendations</p>
++                            <a href="#" class="portfolio-link"><i class="fas fa-external-link-alt"></i></a>
++                        </div>
++                    </div>
++                </div>
++                <div class="portfolio-item" data-category="mobile">
++                    <div class="portfolio-image">
++                        <img src="img/portfolio-2.jpg" alt="Fitness App">
++                        <div class="portfolio-overlay">
++                            <h3>Fitness Tracking App</h3>
++                            <p>Mobile app with real-time health monitoring</p>
++                            <a href="#" class="portfolio-link"><i class="fas fa-external-link-alt"></i></a>
++                        </div>
++                    </div>
++                </div>
++                <div class="portfolio-item" data-category="ai">
++                    <div class="portfolio-image">
++                        <img src="img/portfolio-3.jpg" alt="AI Chatbot">
++                        <div class="portfolio-overlay">
++                            <h3>AI Customer Service</h3>
++                            <p>Intelligent chatbot for customer support</p>
++                            <a href="#" class="portfolio-link"><i class="fas fa-external-link-alt"></i></a>
++                        </div>
++                    </div>
++                </div>
++                <div class="portfolio-item" data-category="web">
++                    <div class="portfolio-image">
++                        <img src="img/portfolio-4.jpg" alt="Corporate Website">
++                        <div class="portfolio-overlay">
++                            <h3>Corporate Website</h3>
++                            <p>Modern corporate website with CMS integration</p>
++                            <a href="#" class="portfolio-link"><i class="fas fa-external-link-alt"></i></a>
++                        </div>
++                    </div>
++                </div>
++                <div class="portfolio-item" data-category="mobile">
++                    <div class="portfolio-image">
++                        <img src="img/portfolio-5.jpg" alt="Banking App">
++                        <div class="portfolio-overlay">
++                            <h3>Digital Banking App</h3>
++                            <p>Secure mobile banking with biometric authentication</p>
++                            <a href="#" class="portfolio-link"><i class="fas fa-external-link-alt"></i></a>
++                        </div>
++                    </div>
++                </div>
++                <div class="portfolio-item" data-category="ai">
++                    <div class="portfolio-image">
++                        <img src="img/portfolio-6.jpg" alt="Predictive Analytics">
++                        <div class="portfolio-overlay">
++                            <h3>Predictive Analytics Dashboard</h3>
++                            <p>Real-time business intelligence platform</p>
++                            <a href="#" class="portfolio-link"><i class="fas fa-external-link-alt"></i></a>
++                        </div>
++                    </div>
++                </div>
++            </div>
++        </div>
++    </section>
++
++    <!-- Contact Section -->
++    <section id="contact" class="contact">
++        <div class="container">
++            <div class="section-header">
++                <h2 class="section-title">Get In Touch</h2>
++                <p class="section-subtitle">Siap memulai proyek teknologi Anda? Mari diskusikan kebutuhan Anda</p>
++            </div>
++            <div class="contact-content">
++                <div class="contact-info">
++                    <div class="contact-item">
++                        <div class="contact-icon">
++                            <i class="fas fa-map-marker-alt"></i>
++                        </div>
++                        <div class="contact-details">
++                            <h3>Address</h3>
++                            <p>Jl. Teknologi No. 123<br>Jakarta Selatan, 12345<br>Indonesia</p>
++                        </div>
++                    </div>
++                    <div class="contact-item">
++                        <div class="contact-icon">
++                            <i class="fas fa-phone"></i>
++                        </div>
++                        <div class="contact-details">
++                            <h3>Phone</h3>
++                            <p>+62 21 1234 5678<br>+62 812 3456 7890</p>
++                        </div>
++                    </div>
++                    <div class="contact-item">
++                        <div class="contact-icon">
++                            <i class="fas fa-envelope"></i>
++                        </div>
++                        <div class="contact-details">
++                            <h3>Email</h3>
++                            <p>hello@sunolabs.co<br>info@sunolabs.co</p>
++                        </div>
++                    </div>
++                </div>
++                <div class="contact-form">
++                    <form id="contactForm">
++                        <div class="form-group">
++                            <input type="text" id="name" name="name" placeholder="Your Name" required>
++                        </div>
++                        <div class="form-group">
++                            <input type="email" id="email" name="email" placeholder="Your Email" required>
++                        </div>
++                        <div class="form-group">
++                            <input type="text" id="subject" name="subject" placeholder="Subject" required>
++                        </div>
++                        <div class="form-group">
++                            <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
++                        </div>
++                        <button type="submit" class="btn btn-primary">Send Message</button>
++                    </form>
++                </div>
++            </div>
++        </div>
++    </section>
++
++    <!-- Footer -->
++    <footer class="footer">
++        <div class="container">
++            <div class="footer-content">
++                <div class="footer-section">
++                    <div class="footer-logo">
++                        <span class="logo-text">Suno</span>
++                        <span class="logo-accent">Labs</span>
++                    </div>
++                    <p>Mengubah masa depan dengan teknologi inovatif dan solusi yang berkelanjutan.</p>
++                    <div class="social-links">
++                        <a href="#"><i class="fab fa-facebook"></i></a>
++                        <a href="#"><i class="fab fa-twitter"></i></a>
++                        <a href="#"><i class="fab fa-linkedin"></i></a>
++                        <a href="#"><i class="fab fa-instagram"></i></a>
++                    </div>
++                </div>
++                <div class="footer-section">
++                    <h3>Services</h3>
++                    <ul>
++                        <li><a href="#services">AI Solutions</a></li>
++                        <li><a href="#services">Web Development</a></li>
++                        <li><a href="#services">Mobile Apps</a></li>
++                        <li><a href="#services">Cloud Solutions</a></li>
++                    </ul>
++                </div>
++                <div class="footer-section">
++                    <h3>Company</h3>
++                    <ul>
++                        <li><a href="#about">About Us</a></li>
++                        <li><a href="#portfolio">Portfolio</a></li>
++                        <li><a href="#contact">Contact</a></li>
++                        <li><a href="#">Careers</a></li>
++                    </ul>
++                </div>
++                <div class="footer-section">
++                    <h3>Newsletter</h3>
++                    <p>Subscribe untuk mendapatkan update terbaru tentang teknologi dan inovasi.</p>
++                    <form class="newsletter-form">
++                        <input type="email" placeholder="Your email address">
++                        <button type="submit">Subscribe</button>
++                    </form>
++                </div>
++            </div>
++            <div class="footer-bottom">
++                <p>&copy; 2025 Suno Labs. All rights reserved.</p>
++            </div>
++        </div>
++    </footer>
++
++    <!-- JavaScript -->
++    <script src="js/script.js"></script>
++</body>
++</html>
