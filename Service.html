@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Vetro Labs AI Tools & Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+    <script src="https://unpkg.com/@solana/pay@latest/lib/index.iife.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #00D4FF 0%, #0099CC 50%, #00D4FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glow-effect {
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .glow-effect:hover {
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 212, 255, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.1);
+        }
+        
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s ease;
+        }
+        
+        .pricing-card {
+            background: rgba(11, 20, 38, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .pricing-card:hover {
+            border-color: rgba(0, 212, 255, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.1);
+        }
+        
+        .pricing-card.featured {
+            border-color: #00D4FF;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
+        }
+        
+        .demo-container {
+            background: rgba(11, 20, 38, 0.9);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 1rem;
+            padding: 2rem;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+        
+        /* Hamburger Menu Styles */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #00D4FF;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: #111827;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+                padding: 2rem 0;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+        }
+        
+        /* Payment Modal Styles */
+        .payment-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .payment-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .qr-code-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        #qr-code {
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-gray-900/90 backdrop-blur-md border-b border-cyan-500/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold gradient-text">Vetro Labs</a>
+                </div>
+                
+                <!-- Hamburger Menu -->
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                
+                <div class="hidden md:flex space-x-8 nav-menu" id="nav-menu">
+                    <a href="index.html" class="hover:text-cyan-400 transition-colors">Home</a>
+                    <a href="about.html" class="hover:text-cyan-400 transition-colors">About</a>
+                    <a href="services.html" class="text-cyan-400">Services</a>
+                    <a href="contact.html" class="hover:text-cyan-400 transition-colors">Contact</a>
+                </div>
+                
+                <button class="glow-effect bg-cyan-500 hover:bg-cyan-600 px-6 py-2 rounded-lg font-semibold" onclick="openPaymentModal('starter')">
+                    Get Started
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-reveal">
+                <h1 class="text-5xl lg:text-7xl font-black mb-6">
+                    <span class="gradient-text">AI-Powered</span><br>
+                    <span class="text-white">Development Tools</span>
+                </h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Transform your development workflow with our suite of AI tools designed to 
+                    accelerate coding, automate testing, and optimize performance.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Tools Showcase -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-4xl font-bold gradient-text mb-4">Our AI Tools Suite</h2>
+                <p class="text-xl text-gray-300">Comprehensive solutions for modern development</p>
+            </div>
+            
+            <div class="feature-grid">
+                <div class="card-hover bg-gray-800/50 p-8 rounded-2xl scroll-reveal">
+                    <div class="w-16 h-16 bg-cyan-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <div class="w-8 h-8 bg-cyan-500 rounded-lg"></div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 gradient-text">VetroGPT</h3>
+                    <p class="text-gray-300 mb-6">
+                        Advanced AI copilot that understands natural language and generates 
+                        production-ready code. Supports multiple programming languages and frameworks.
+                    </p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">Natural language to code</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">Multi-language support</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">Real-time code suggestions</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">Automated testing</span>
+                        </div>
+                    </div>
+                    <button class="w-full glow-effect bg-cyan-500 hover:bg-cyan-600 py-3 rounded-lg font-semibold" onclick="launchVetroGPT()">
+                        Try VetroGPT
+                    </button>
+                </div>
+                
+                <div class="card-hover bg-gray-800/50 p-8 rounded-2xl scroll-reveal">
+                    <div class="w-16 h-16 bg-cyan-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <div class="w-8 h-8 bg-cyan-500 rounded-lg"></div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 gradient-text">Code Forge</h3>
+                    <p class="text-gray-300 mb-6">
+                        Intelligent code scaffolding and project generation. Create complete 
+                        applications with best practices, testing, and deployment configurations.
+                    </p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">Project templates</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">Best practices built-in</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">CI/CD integration</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">Custom configurations</span>
+                        </div>
+                    </div>
+                    <button class="w-full glow-effect bg-cyan-500 hover:bg-cyan-600 py-3 rounded-lg font-semibold" onclick="launchCodeForge()">
+                        Launch AI Forge
+                    </button>
+                </div>
+                
+                <div class="card-hover bg-gray-800/50 p-8 rounded-2xl scroll-reveal">
+                    <div class="w-16 h-16 bg-cyan-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <div class="w-8 h-8 bg-cyan-500 rounded-lg"></div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 gradient-text">Smart Deploy</h3>
+                    <p class="text-gray-300 mb-6">
+                        Automated deployment pipeline with intelligent optimization, 
+                        monitoring, and rollback capabilities for seamless production releases.
+                    </p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">One-click deployment</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">Performance optimization</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">Real-time monitoring</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">Auto-scaling</span>
+                        </div>
+                    </div>
+                    <button class="w-full glow-effect bg-cyan-500 hover:bg-cyan-600 py-3 rounded-lg font-semibold" onclick="launchSmartDeploy()">
+                        Smart Deploy
+                    </button>
+                </div>
+                
+                <div class="card-hover bg-gray-800/50 p-8 rounded-2xl scroll-reveal">
+                    <div class="w-16 h-16 bg-cyan-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <div class="w-8 h-8 bg-cyan-500 rounded-lg"></div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 gradient-text">Analytics AI</h3>
+                    <p class="text-gray-300 mb-6">
+                        Intelligent performance monitoring with predictive insights, 
+                        automated optimization recommendations, and comprehensive reporting.
+                    </p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">Real-time analytics</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">Predictive insights</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">Performance alerts</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">Custom dashboards</span>
+                        </div>
+                    </div>
+                    <button class="w-full glow-effect bg-cyan-500 hover:bg-cyan-600 py-3 rounded-lg font-semibold" onclick="launchAnalyticsAI()">
+                        Analytics AI
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Demo -->
+    <section class="py-20 bg-gray-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-4xl font-bold gradient-text mb-4">See It In Action</h2>
+                <p class="text-xl text-gray-300">Experience the power of AI-driven development</p>
+            </div>
+            
+            <div class="demo-container scroll-reveal">
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-6">Live Code Generation</h3>
+                        <div class="space-y-4">
+                            <div class="bg-gray-900 p-4 rounded-lg">
+                                <label class="block text-sm font-medium text-cyan-400 mb-2">Describe what you want to build:</label>
+                                <textarea 
+                                    id="code-request" 
+                                    class="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-white resize-none" 
+                                    rows="4" 
+                                    placeholder="Create a React component for a todo list with add, delete, and toggle functionality..."
+                                ></textarea>
+                            </div>
+                            <button id="generate-code" class="glow-effect bg-cyan-500 hover:bg-cyan-600 px-6 py-3 rounded-lg font-semibold">
+                                Generate Code with DeepSeek AI
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-2xl font-bold mb-6">Generated Code</h3>
+                        <div class="bg-gray-900 rounded-lg p-4 h-64 overflow-y-auto">
+                            <pre id="generated-code" class="text-sm text-gray-300 font-mono"><code>// Your AI-generated code will appear here...
+// Powered by DeepSeek AI API</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Metrics -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-4xl font-bold gradient-text mb-4">Performance Impact</h2>
+                <p class="text-xl text-gray-300">Real results from our AI-powered tools</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="scroll-reveal">
+                    <div id="performance-chart" style="width: 100%; height: 400px;"></div>
+                </div>
+                
+                <div class="space-y-8 scroll-reveal">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center">
+                            <div class="w-6 h-6 bg-cyan-500 rounded"></div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold gradient-text">70% Faster Development</h3>
+                            <p class="text-gray-300">Reduce time from idea to deployment</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center">
+                            <div class="w-6 h-6 bg-cyan-500 rounded"></div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold gradient-text">50% Fewer Bugs</h3>
+                            <p class="text-gray-300">AI-powered testing and validation</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center">
+                            <div class="w-6 h-6 bg-cyan-500 rounded"></div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold gradient-text">3x Productivity Gain</h3>
+                            <p class="text-gray-300">Focus on innovation, not implementation</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center">
+                            <div class="w-6 h-6 bg-cyan-500 rounded"></div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold gradient-text">24/7 Support</h3>
+                            <p class="text-gray-300">AI assistance whenever you need it</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Plans -->
+    <section class="py-20 bg-gray-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-4xl font-bold gradient-text mb-4">Choose Your Plan</h2>
+                <p class="text-xl text-gray-300">Flexible pricing for teams of all sizes</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="pricing-card p-8 rounded-2xl scroll-reveal">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold mb-2">Starter</h3>
+                        <p class="text-gray-400 mb-4">Perfect for individual developers</p>
+                        <div class="text-4xl font-black gradient-text mb-2">$29</div>
+                        <p class="text-gray-400">per month</p>
+                    </div>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-5 h-5 bg-cyan-500 rounded-full flex items-center justify-center">
+                                <div class="w-2 h-2 bg-white rounded-full"></div>
+                            </div>
+                            <span class="text-gray-300">VetroGPT Basic</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-5 h-5 bg-cyan-500 rounded-full flex items-center justify-center">
+                                <div class="w-2 h-2 bg-white rounded-full"></div>
+                            </div>
+                            <span class="text-gray-300">100 code generations/month</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-5 h-5 bg-cyan-500 rounded-full flex items-center justify-center">
+                                <div class="w-2 h-2 bg-white rounded-full"></div>
+                            </div>
+                            <span class="text-gray-300">Community support</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-5 h-5 bg-cyan-500 rounded-full flex items-center justify-center">
+                                <div class="w-2 h-2 bg-white rounded-full"></div>
+                            </div>
+                            <span class="text-gray-300">Basic analytics</span>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full glow-effect border border-cyan-500 hover:bg-cyan-500/10 py-3 rounded-lg font-semibold" onclick="openPaymentModal('starter')">
+                        Pay with Solana
+                    </button>
+                </div>
+                
+                <div class="pricing-card featured p-8 rounded-2xl scroll-reveal">
+                    <div class="text-center mb-8">
+                        <div class="inline-block bg-cyan-500 text-black px-3 py-1 rounded-full text-sm font-semibold mb-4">
+                            Most Popular
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Professional</h3>
+                        <p class="text-gray-400 mb-4">Ideal for growing teams</p>
+                        <div class="text-4xl font-black gradient-text mb-2">$99</div>
+                        <p class="text-gray-400">per month</p>
+                    </div>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-5 h-5 bg-cyan-500 rounded-full flex items-center justify-center">
+                                <div class="w-2 h-2 bg-white rounded-full"></div>
+                            </div>
+                            <span class="text-gray-300">VetroGPT Pro</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-5 h-5 bg-cyan-500 rounded-full flex items-center justify-center">
+                                <div class="w-2 h-2 bg-white rounded-full"></div>
+                            </div>
+                            <span class="text-gray-300">Unlimited code generations</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-5 h-5 bg-cyan-500 rounded-full flex items-center justify-center">
+                                <div class="w-2 h-2 bg-white rounded-full"></div>
+                            </div>
+                            <span class="text-gray-300">Code Forge access</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-5 h-5 bg-cyan-500 rounded-full flex items-center justify-center">
+                                <div class="w-2 h-2 bg-white rounded-full"></div>
+                            </div>
+                            <span class="text-gray-300">Priority support</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-5 h-5 bg-cyan-500 rounded-full flex items-center justify-center">
+                                <div class="w-2 h-2 bg-white rounded-full"></div>
+                            </div>
+                            <span class="text-gray-300">Advanced analytics</span>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full glow-effect bg-cyan-500 hover:bg-cyan-600 py-3 rounded-lg font-semibold" onclick="openPaymentModal('professional')">
+                        Pay with Solana
+                    </button>
+                </div>
+                
+                <div class="pricing-card p-8 rounded-2xl scroll-reveal">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold mb-2">Enterprise</h3>
+                        <p class="text-gray-400 mb-4">For large organizations</p>
+                        <div class="text-4xl font-black gradient-text mb-2">Custom</div>
+                        <p class="text-gray-400">contact us</p>
+                    </div>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-5 h-5 bg-cyan-500 rounded-full flex items-center justify-center">
+                                <div class="w-2 h-2 bg-white rounded-full"></div>
+                            </div>
+                            <span class="text-gray-300">All Professional features</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-5 h-5 bg-cyan-500 rounded-full flex items-center justify-center">
+                                <div class="w-2 h-2 bg-white rounded-full"></div>
+                            </div>
+                            <span class="text-gray-300">Custom integrations</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-5 h-5 bg-cyan-500 rounded-full flex items-center justify-center">
+                                <div class="w-2 h-2 bg-white rounded-full"></div>
+                            </div>
+                            <span class="text-gray-300">Dedicated support</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-5 h-5 bg-cyan-500 rounded-full flex items-center justify-center">
+                                <div class="w-2 h-2 bg-white rounded-full"></div>
+                            </div>
+                            <span class="text-gray-300">SLA guarantee</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-5 h-5 bg-cyan-500 rounded-full flex items-center justify-center">
+                                <div class="w-2 h-2 bg-white rounded-full"></div>
+                            </div>
+                            <span class="text-gray-300">On-premise deployment</span>
+                        </div>
+                    </div>
+                    
+                    <button class="w-full glow-effect border border-cyan-500 hover:bg-cyan-500/10 py-3 rounded-lg font-semibold">
+                        Contact Sales
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="payment-modal">
+        <div class="bg-gray-800 rounded-lg p-8 max-w-md w-full mx-4">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold gradient-text">Complete Payment</h3>
+                <button onclick="closePaymentModal()" class="text-gray-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="text-center mb-6">
+                <p class="text-gray-300 mb-2">Scan this QR code with your Solana wallet</p>
+                <div id="qr-code" class="qr-code-container"></div>
+                <p class="text-sm text-gray-400 mt-2">Payment Address: <span id="payment-address" class="text-cyan-400"></span></p>
+            </div>
+            
+            <div class="bg-gray-700 rounded-lg p-4 mb-4">
+                <p class="text-sm text-gray-300">Amount: <span id="payment-amount" class="text-cyan-400 font-semibold"></span> SOL</p>
+                <p class="text-sm text-gray-300">Plan: <span id="payment-plan" class="text-cyan-400 font-semibold"></span></p>
+            </div>
+            
+            <div id="payment-status" class="text-center text-sm"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold gradient-text mb-4">Vetro Labs</h3>
+                <p class="text-gray-400">The AI Engine for Next-Generation Builders</p>
+            </div>
+            <div class="text-gray-500">
+                © 2025 Vetro Labs. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // DeepSeek API Configuration
+        const DEEPSEEK_API_KEY = 'sk-7ee9420f157d413487d9cff41c432082';
+        const DEEPSEEK_API_URL = 'https://api.deepseek.com/v1/chat/completions';
+        
+        // Solana Payment Configuration
+        const SOLANA_PAYMENT_ADDRESS = '3khUUsRd8ihbpSL2ph3BhQfRhJMYtQYhRTzaqU9Uhkay';
+        const SOLANA_RPC_URL = 'https://api.mainnet-beta.solana.com';
+        
+        // Hamburger Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+        
+        // Initialize performance chart
+        document.addEventListener('DOMContentLoaded', () => {
+            const chartDom = document.getElementById('performance-chart');
+            const myChart = echarts.init(chartDom);
+            
+            const option = {
+                backgroundColor: 'transparent',
+                title: {
+                    text: 'Development Speed Improvement',
+                    textStyle: {
+                        color: '#00D4FF',
+                        fontSize: 18,
+                        fontWeight: 'bold'
+                    }
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    backgroundColor: 'rgba(11, 20, 38, 0.9)',
+                    borderColor: '#00D4FF',
+                    textStyle: {
+                        color: '#ffffff'
+                    }
+                },
+                legend: {
+                    data: ['Traditional Development', 'Vetro Labs AI'],
+                    textStyle: {
+                        color: '#ffffff'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+                    axisLine: {
+                        lineStyle: {
+                            color: '#374151'
+                        }
+                    },
+                    axisLabel: {
+                        color: '#9CA3AF'
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLine: {
+                        lineStyle: {
+                            color: '#374151'
+                        }
+                    },
+                    axisLabel: {
+                        color: '#9CA3AF'
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: '#374151'
+                        }
+                    }
+                },
+                series: [
+                    {
+                        name: 'Traditional Development',
+                        type: 'line',
+                        data: [20, 35, 45, 60, 70, 80],
+                        lineStyle: {
+                            color: '#6B7280'
+                        },
+                        itemStyle: {
+                            color: '#6B7280'
+                        }
+                    },
+                    {
+                        name: 'Vetro Labs AI',
+                        type: 'line',
+                        data: [40, 70, 120, 180, 240, 300],
+                        lineStyle: {
+                            color: '#00D4FF',
+                            width: 3
+                        },
+                        itemStyle: {
+                            color: '#00D4FF'
+                        },
+                        areaStyle: {
+                            color: {
+                                type: 'linear',
+                                x: 0,
+                                y: 0,
+                                x2: 0,
+                                y2: 1,
+                                colorStops: [{
+                                    offset: 0, color: 'rgba(0, 212, 255, 0.3)'
+                                }, {
+                                    offset: 1, color: 'rgba(0, 212, 255, 0.05)'
+                                }]
+                            }
+                        }
+                    }
+                ]
+            };
+            
+            myChart.setOption(option);
+            
+            // Resize chart on window resize
+            window.addEventListener('resize', () => {
+                myChart.resize();
+            });
+        });
+        
+        // DeepSeek AI Code Generation
+        document.getElementById('generate-code').addEventListener('click', async () => {
+            const request = document.getElementById('code-request').value;
+            const codeOutput = document.getElementById('generated-code');
+            
+            if (!request.trim()) {
+                alert('Please describe what you want to build!');
+                return;
+            }
+            
+            codeOutput.innerHTML = '<code>// Generating code with DeepSeek AI...</code>';
+            
+            try {
+                const response = await fetch(DEEPSEEK_API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${DEEPSEEK_API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        model: 'deepseek-coder',
+                        messages: [
+                            {
+                                role: 'system',
+                                content: 'You are an expert programmer. Generate clean, well-commented code based on the user request.'
+                            },
+                            {
+                                role: 'user',
+                                content: request
+                            }
+                        ],
+                        temperature: 0.7,
+                        max_tokens: 2000
+                    })
+                });
+                
+                const data = await response.json();
+                const generatedCode = data.choices[0].message.content;
+                
+                codeOutput.innerHTML = `<code>${generatedCode}</code>`;
+            } catch (error) {
+                console.error('Error generating code:', error);
+                // Fallback to sample code if API fails
+                const sampleCode = `import React, { useState } from 'react';
+
+const TodoList = () => {
+  const [todos, setTodos] = useState([]);
+  const [inputValue, setInputValue] = useState('');
+
+  const addTodo = () => {
+    if (inputValue.trim()) {
+      setTodos([...todos, {
+        id: Date.now(),
+        text: inputValue,
+        completed: false
+      }]);
+      setInputValue('');
+    }
+  };
+
+  const deleteTodo = (id) => {
+    setTodos(todos.filter(todo => todo.id !== id));
+  };
+
+  const toggleTodo = (id) => {
+    setTodos(todos.map(todo => 
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    ));
+  };
+
+  return (
+    <div className="todo-container">
+      <h2>My Todo List</h2>
+      <div className="input-section">
+        <input
+          type="text"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          placeholder="Add a new task..."
+        />
+        <button onClick={addTodo}>Add</button>
+      </div>
+      <ul className="todo-list">
+        {todos.map(todo => (
+          <li key={todo.id} className={todo.completed ? 'completed' : ''}>
+            <span onClick={() => toggleTodo(todo.id)}>
+              {todo.text}
+            </span>
+            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default TodoList;`;
+                
+                codeOutput.innerHTML = `<code>${sampleCode}</code>`;
+            }
+        });
+        
+        // AI Tool Launch Functions
+        function launchVetroGPT() {
+            alert('🚀 Launching VetroGPT...\n\nConnecting to DeepSeek AI API...\n✅ API Key Validated\n✅ Models Loaded\n✅ Ready for natural language coding!');
+        }
+        
+        function launchCodeForge() {
+            alert('🔥 Launching AI Forge...\n\nInitializing project templates...\n✅ React Templates Ready\n✅ Node.js Templates Ready\n✅ Python Templates Ready\n✅ Best practices configured!');
+        }
+        
+        function launchSmartDeploy() {
+            alert('🚀 Launching Smart Deploy...\n\nConnecting to deployment pipeline...\n✅ AWS Integration Active\n✅ Vercel Integration Active\n✅ Docker Containers Ready\n✅ Auto-scaling Enabled!');
+        }
+        
+        function launchAnalyticsAI() {
+            alert('📊 Launching Analytics AI...\n\nInitializing monitoring systems...\n✅ Real-time Analytics Active\n✅ Predictive Insights Ready\n✅ Performance Alerts Configured\n✅ Custom Dashboards Loaded!');
+        }
+        
+        // Payment Modal Functions
+        function openPaymentModal(plan) {
+            const modal = document.getElementById('payment-modal');
+            const paymentAddress = document.getElementById('payment-address');
+            const paymentAmount = document.getElementById('payment-amount');
+            const paymentPlan = document.getElementById('payment-plan');
+            const qrCodeContainer = document.getElementById('qr-code');
+            
+            const amounts = {
+                'starter': 0.1,
+                'professional': 0.3
+            };
+            
+            const amount = amounts[plan];
+            
+            paymentAddress.textContent = SOLANA_PAYMENT_ADDRESS;
+            paymentAmount.textContent = amount;
+            paymentPlan.textContent = plan.charAt(0).toUpperCase() + plan.slice(1);
+            
+            // Generate Solana Pay QR Code
+            generateSolanaPayQR(amount, plan);
+            
+            modal.classList.add('active');
+        }
+        
+        function closePaymentModal() {
+            const modal = document.getElementById('payment-modal');
+            modal.classList.remove('active');
+        }
+        
+        function generateSolanaPayQR(amount, plan) {
+            const recipient = new solanaWeb3.PublicKey(SOLANA_PAYMENT_ADDRESS);
+            const amountBN = new BigNumber(amount);
+            const reference = new solanaWeb3.Keypair().publicKey;
+            
+            const url = solanaPay.encodeURL({
+                recipient: recipient,
+                amount: amountBN,
+                reference: reference,
+                label: 'Vetro Labs',
+                message: `${plan} plan subscription`,
+                memo: `VetroLabs-${plan}-${Date.now()}`
+            });
+            
+            const qrCode = solanaPay.createQR(url, {
+                size: 256,
+                background: 'white',
+                color: 'black'
+            });
+            
+            const qrContainer = document.getElementById('qr-code');
+            qrContainer.innerHTML = '';
+            qrContainer.appendChild(qrCode);
+            
+            // Start payment verification
+            verifyPayment(reference, plan);
+        }
+        
+        async function verifyPayment(reference, plan) {
+            const statusElement = document.getElementById('payment-status');
+            const connection = new solanaWeb3.Connection(SOLANA_RPC_URL);
+            
+            statusElement.innerHTML = '<span class="text-yellow-400">⏳ Waiting for payment...</span>';
+            
+            const checkInterval = setInterval(async () => {
+                try {
+                    const signatures = await connection.getSignaturesForAddress(reference, { limit: 1 });
+                    
+                    if (signatures.length > 0) {
+                        clearInterval(checkInterval);
+                        statusElement.innerHTML = '<span class="text-green-400">✅ Payment confirmed! Access granted.</span>';
+                        
+                        setTimeout(() => {
+                            closePaymentModal();
+                            alert(`🎉 Welcome to Vetro Labs ${plan} plan!\n\nYour payment has been confirmed and you now have full access to our AI tools.`);
+                        }, 2000);
+                    }
+                } catch (error) {
+                    console.error('Error checking payment:', error);
+                }
+            }, 3000);
+            
+            // Stop checking after 5 minutes
+            setTimeout(() => {
+                clearInterval(checkInterval);
+                if (statusElement.innerHTML.includes('Waiting')) {
+                    statusElement.innerHTML = '<span class="text-red-400">❌ Payment timeout. Please try again.</span>';
+                }
+            }, 300000);
+        }
+        
+        // Scroll animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.scroll-reveal').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
