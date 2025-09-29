@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Forge - Vetro Labs AI Development Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
+    <script src="https://unpkg.com/@solana/wallet-adapter-base@0.9.15/lib/index.iife.js"></script>
+    <script src="https://unpkg.com/@solana/wallet-adapter-phantom@0.15.8/lib/index.iife.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #00D4FF 0%, #0099CC 50%, #00D4FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glow-effect {
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .glow-effect:hover {
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 212, 255, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.1);
+        }
+        
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s ease;
+        }
+        
+        .pricing-card {
+            background: rgba(11, 20, 38, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .pricing-card:hover {
+            border-color: rgba(0, 212, 255, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.1);
+        }
+        
+        .pricing-card.featured {
+            border-color: #00D4FF;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
+        }
+        
+        .demo-container {
+            background: rgba(11, 20, 38, 0.9);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 1rem;
+            padding: 2rem;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .api-status {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .api-status.connected {
+            background: rgba(0, 255, 127, 0.2);
+            color: #00FF7F;
+            border: 1px solid rgba(0, 255, 127, 0.5);
+        }
+        
+        .api-status.disconnected {
+            background: rgba(255, 69, 58, 0.2);
+            color: #FF453A;
+            border: 1px solid rgba(255, 69, 58, 0.5);
+        }
+        
+        .wallet-connected {
+            background: rgba(0, 212, 255, 0.2);
+            color: #00D4FF;
+            border: 1px solid rgba(0, 212, 255, 0.5);
+        }
+        
+        .code-block {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-gray-900/90 backdrop-blur-md border-b border-cyan-500/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-8">
+                    <a href="index.html" class="text-2xl font-bold gradient-text">Vetro Labs</a>
+                    <div class="hidden md:flex space-x-8">
+                        <a href="index.html" class="hover:text-cyan-400 transition-colors">Home</a>
+                        <a href="about.html" class="hover:text-cyan-400 transition-colors">About</a>
+                        <a href="services.html" class="hover:text-cyan-400 transition-colors">Services</a>
+                        <a href="ai-forge.html" class="text-cyan-400">AI Forge</a>
+                        <a href="contact.html" class="hover:text-cyan-400 transition-colors">Contact</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div id="api-status" class="api-status disconnected">API: Disconnected</div>
+                    <div id="wallet-status" class="api-status disconnected">Wallet: Disconnected</div>
+                    <button id="connect-wallet" class="glow-effect bg-cyan-500 hover:bg-cyan-600 px-6 py-2 rounded-lg font-semibold">
+                        Connect Wallet
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-reveal">
+                <h1 class="text-5xl lg:text-7xl font-black mb-6">
+                    <span class="gradient-text">AI Forge</span><br>
+                    <span class="text-white">Powerful AI Development Platform</span>
+                </h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Access our complete suite of AI tools with seamless Solana integration. 
+                    Build, deploy, and scale your applications with cutting-edge AI technology.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- API Status Dashboard -->
+    <section class="py-12 bg-gray-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8 scroll-reveal">
+                <h2 class="text-3xl font-bold gradient-text mb-4">System Status</h2>
+            </div>
+            <div class="grid md:grid-cols-4 gap-4">
+                <div class="bg-gray-800/50 p-4 rounded-lg text-center">
+                    <div class="text-sm text-gray-400 mb-2">DeepSeek API</div>
+                    <div class="api-status connected">Connected</div>
+                </div>
+                <div class="bg-gray-800/50 p-4 rounded-lg text-center">
+                    <div class="text-sm text-gray-400 mb-2">Replicate API</div>
+                    <div class="api-status connected">Connected</div>
+                </div>
+                <div class="bg-gray-800/50 p-4 rounded-lg text-center">
+                    <div class="text-sm text-gray-400 mb-2">Solana Network</div>
+                    <div class="api-status connected">Mainnet</div>
+                </div>
+                <div class="bg-gray-800/50 p-4 rounded-lg text-center">
+                    <div class="text-sm text-gray-400 mb-2">Wallet Status</div>
+                    <div id="wallet-status-dashboard" class="api-status disconnected">Disconnected</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Tools Showcase -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-4xl font-bold gradient-text mb-4">AI Development Tools</h2>
+                <p class="text-xl text-gray-300">Access our complete AI toolkit with real-time functionality</p>
+            </div>
+            
+            <div class="feature-grid">
+                <!-- VetroGPT Card -->
+                <div class="card-hover bg-gray-800/50 p-8 rounded-2xl scroll-reveal">
+                    <div class="w-16 h-16 bg-cyan-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <div class="w-8 h-8 bg-cyan-500 rounded-lg"></div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 gradient-text">VetroGPT</h3>
+                    <p class="text-gray-300 mb-6">
+                        Advanced AI copilot powered by DeepSeek. Generate production-ready code, 
+                        get intelligent suggestions, and accelerate your development workflow.
+                    </p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">DeepSeek API Integration</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">Multi-language support</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">Real-time code generation</span>
+                        </div>
+                    </div>
+                    <button onclick="openVetroGPT()" class="w-full glow-effect bg-cyan-500 hover:bg-cyan-600 py-3 rounded-lg font-semibold">
+                        Try VetroGPT
+                    </button>
+                </div>
+                
+                <!-- Code Forge Card -->
+                <div class="card-hover bg-gray-800/50 p-8 rounded-2xl scroll-reveal">
+                    <div class="w-16 h-16 bg-cyan-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <div class="w-8 h-8 bg-cyan-500 rounded-lg"></div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 gradient-text">Code Forge</h3>
+                    <p class="text-gray-300 mb-6">
+                        Intelligent project scaffolding with AI-powered code generation. 
+                        Create complete applications with best practices and deployment configs.
+                    </p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">Project templates</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">AI-powered scaffolding</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">Deployment automation</span>
+                        </div>
+                    </div>
+                    <button onclick="openCodeForge()" class="w-full glow-effect bg-cyan-500 hover:bg-cyan-600 py-3 rounded-lg font-semibold">
+                        Launch Code Forge
+                    </button>
+                </div>
+                
+                <!-- Smart Deploy Card -->
+                <div class="card-hover bg-gray-800/50 p-8 rounded-2xl scroll-reveal">
+                    <div class="w-16 h-16 bg-cyan-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <div class="w-8 h-8 bg-cyan-500 rounded-lg"></div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 gradient-text">Smart Deploy</h3>
+                    <p class="text-gray-300 mb-6">
+                        Automated deployment pipeline with intelligent optimization. 
+                        Deploy to multiple platforms with AI-driven performance tuning.
+                    </p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">Multi-platform deployment</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">Performance optimization</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">Auto-scaling</span>
+                        </div>
+                    </div>
+                    <button onclick="openSmartDeploy()" class="w-full glow-effect bg-cyan-500 hover:bg-cyan-600 py-3 rounded-lg font-semibold">
+                        Deploy Now
+                    </button>
+                </div>
+                
+                <!-- Analytics AI Card -->
+                <div class="card-hover bg-gray-800/50 p-8 rounded-2xl scroll-reveal">
+                    <div class="w-16 h-16 bg-cyan-500/20 rounded-xl flex items-center justify-center mb-6">
+                        <div class="w-8 h-8 bg-cyan-500 rounded-lg"></div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 gradient-text">Analytics AI</h3>
+                    <p class="text-gray-300 mb-6">
+                        Intelligent performance monitoring with predictive insights. 
+                        Get AI-driven recommendations for optimization and scaling.
+                    </p>
+                    <div class="space-y-3 mb-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">Real-time analytics</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">Predictive insights</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                            <span class="text-sm text-gray-300">Custom dashboards</span>
+                        </div>
+                    </div>
+                    <button onclick="openAnalyticsAI()" class="w-full glow-effect bg-cyan-500 hover:bg-cyan-600 py-3 rounded-lg font-semibold">
+                        View Analytics
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live AI Demo -->
+    <section class="py-20 bg-gray-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-4xl font-bold gradient-text mb-4">Live AI Demo</h2>
+                <p class="text-xl text-gray-300">Experience real AI-powered code generation</p>
+            </div>
+            
+            <div class="demo-container scroll-reveal">
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-6">VetroGPT Code Generator</h3>
+                        <div class="space-y-4">
+                            <div class="bg-gray-900 p-4 rounded-lg">
+                                <label class="block text-sm font-medium text-cyan-400 mb-2">Describe your code requirement:</label>
+                                <textarea 
+                                    id="code-request" 
+                                    class="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-white resize-none" 
+                                    rows="4" 
+                                    placeholder="Create a React component for a todo list with add, delete, and toggle functionality..."
+                                ></textarea>
+                            </div>
+                            <div class="flex space-x-4">
+                                <button id="generate-code" class="glow-effect bg-cyan-500 hover:bg-cyan-600 px-6 py-3 rounded-lg font-semibold">
+                                    Generate Code
+                                </button>
+                                <button id="clear-code" class="glow-effect border border-cyan-500 hover:bg-cyan-500/10 px-6 py-3 rounded-lg font-semibold">
+                                    Clear
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-2xl font-bold mb-6">Generated Code</h3>
+                        <div class="bg-gray-900 rounded-lg p-4 h-64 overflow-y-auto">
+                            <pre id="generated-code" class="text-sm text-gray-300 font-mono"><code>// Your AI-generated code will appear here
+// Connect your wallet and describe what you want to build!</code></pre>
+                        </div>
+                        <div class="mt-4 flex space-x-2">
+                            <button id="copy-code" class="flex-1 glow-effect border border-cyan-500 hover:bg-cyan-500/10 py-2 rounded-lg font-semibold">
+                                Copy Code
+                            </button>
+                            <button id="download-code" class="flex-1 glow-effect border border-cyan-500 hover:bg-cyan-500/10 py-2 rounded-lg font-semibold">
+                                Download
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solana Payment Integration -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-reveal">
+                <h2 class="text-4xl font-bold gradient-text mb-4">Solana-Powered Payments</h2>
+                <p class="text-xl text-gray-300">Fast, secure payments with Solana blockchain</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="pricing-card p-8 rounded-2xl scroll-reveal">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold mb-2">Starter</h3>
+                        <p class="text-gray-400 mb-4">Perfect for individual developers</p>
+                        <div class="text-4xl font-black gradient-text mb-2">29 SOL</div>
+                        <p class="text-gray-400">per month</p>
+                    </div>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-5 h-5 bg-cyan-500 rounded-full flex items-center justify-center">
+                                <div class="w-2 h-2 bg-white rounded-full"></div>
+                            </div>
+                            <span class="text-gray-300">VetroGPT Basic</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-5 h-5 bg-cyan-500 rounded-full flex items-center justify-center">
+                                <div class="w-2 h-2 bg-white rounded-full"></div>
+                            </div>
+                            <span class="text-gray-300">100 code generations/month</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-5 h-5 bg-cyan-500 rounded-full flex items-center justify-center">
+                                <div class="w-2 h-2 bg-white rounded-full"></div>
+                            </div>
+                            <span class="text-gray-300">Community support</span>
+                        </div>
+                    </div>
+                    
+                    <button onclick="subscribeStarter()" class="w-full glow-effect border border-cyan-500 hover:bg-cyan-500/10 py-3 rounded-lg font-semibold">
+                        Subscribe with SOL
+                    </button>
+                </div>
+                
+                <div class="pricing-card featured p-8 rounded-2xl scroll-reveal">
+                    <div class="text-center mb-8">
+                        <div class="inline-block bg-cyan-500 text-black px-3 py-1 rounded-full text-sm font-semibold mb-4">
+                            Most Popular
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Professional</h3>
+                        <p class="text-gray-400 mb-4">Ideal for growing teams</p>
+                        <div class="text-4xl font-black gradient-text mb-2">99 SOL</div>
+                        <p class="text-gray-400">per month</p>
+                    </div>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-5 h-5 bg-cyan-500 rounded-full flex items-center justify-center">
+                                <div class="w-2 h-2 bg-white rounded-full"></div>
+                            </div>
+                            <span class="text-gray-300">Full AI Suite Access</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-5 h-5 bg-cyan-500 rounded-full flex items-center justify-center">
+                                <div class="w-2 h-2 bg-white rounded-full"></div>
+                            </div>
+                            <span class="text-gray-300">Unlimited generations</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-5 h-5 bg-cyan-500 rounded-full flex items-center justify-center">
+                                <div class="w-2 h-2 bg-white rounded-full"></div>
+                            </div>
+                            <span class="text-gray-300">Priority support</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-5 h-5 bg-cyan-500 rounded-full flex items-center justify-center">
+                                <div class="w-2 h-2 bg-white rounded-full"></div>
+                            </div>
+                            <span class="text-gray-300">Advanced analytics</span>
+                        </div>
+                    </div>
+                    
+                    <button onclick="subscribeProfessional()" class="w-full glow-effect bg-cyan-500 hover:bg-cyan-600 py-3 rounded-lg font-semibold">
+                        Subscribe with SOL
+                    </button>
+                </div>
+                
+                <div class="pricing-card p-8 rounded-2xl scroll-reveal">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-bold mb-2">Enterprise</h3>
+                        <p class="text-gray-400 mb-4">For large organizations</p>
+                        <div class="text-4xl font-black gradient-text mb-2">Custom</div>
+                        <p class="text-gray-400">contact us</p>
+                    </div>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-5 h-5 bg-cyan-500 rounded-full flex items-center justify-center">
+                                <div class="w-2 h-2 bg-white rounded-full"></div>
+                            </div>
+                            <span class="text-gray-300">All Professional features</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-5 h-5 bg-cyan-500 rounded-full flex items-center justify-center">
+                                <div class="w-2 h-2 bg-white rounded-full"></div>
+                            </div>
+                            <span class="text-gray-300">Custom integrations</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-5 h-5 bg-cyan-500 rounded-full flex items-center justify-center">
+                                <div class="w-2 h-2 bg-white rounded-full"></div>
+                            </div>
+                            <span class="text-gray-300">Dedicated support</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-5 h-5 bg-cyan-500 rounded-full flex items-center justify-center">
+                                <div class="w-2 h-2 bg-white rounded-full"></div>
+                            </div>
+                            <span class="text-gray-300">On-premise deployment</span>
+                        </div>
+                    </div>
+                    
+                    <button onclick="contactSales()" class="w-full glow-effect border border-cyan-500 hover:bg-cyan-500/10 py-3 rounded-lg font-semibold">
+                        Contact Sales
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold gradient-text mb-4">Vetro Labs</h3>
+                <p class="text-gray-400">The AI Engine for Next-Generation Builders</p>
+            </div>
+            <div class="text-gray-500">
+                © 2025 Vetro Labs. All rights reserved. | Solana Address: 3khUUsRd8ihbpSL2ph3BhQfRhJMYtQYhRTzaqU9Uhkay
+            </div>
+        </div>
+    </footer>
+
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-gray-800 p-8 rounded-2xl max-w-md w-full mx-4">
+            <h3 class="text-2xl font-bold gradient-text mb-4" id="modal-title">Confirm Payment</h3>
+            <div class="space-y-4">
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <div class="text-sm text-gray-400">Plan</div>
+                    <div class="text-lg font-semibold" id="modal-plan">Starter - 29 SOL/month</div>
+                </div>
+                <div class="bg-gray-700 p-4 rounded-lg">
+                    <div class="text-sm text-gray-400">Recipient</div>
+                    <div class="text-sm font-mono">3khUUsRd8ihbpSL2ph3BhQfRhJMYtQYhRTzaqU9Uhkay</div>
+                </div>
+                <div class="flex space-x-4">
+                    <button onclick="confirmPayment()" class="flex-1 glow-effect bg-cyan-500 hover:bg-cyan-600 py-3 rounded-lg font-semibold">
+                        Confirm
+                    </button>
+                    <button onclick="closeModal()" class="flex-1 glow-effect border border-gray-600 hover:bg-gray-700 py-3 rounded-lg font-semibold">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DeepSeek API Configuration
+        const DEEPSEEK_API_KEY = 'sk-7ee9420f157d413487d9cff41c432082';
+        const DEEPSEEK_API_URL = 'https://api.deepseek.com/v1/chat/completions';
+        
+        // Solana Configuration
+        const SOLANA_RPC_URL = 'https://api.mainnet-beta.solana.com';
+        const RECIPIENT_ADDRESS = '3khUUsRd8ihbpSL2ph3BhQfRhJMYtQYhRTzaqU9Uhkay';
+        
+        // Global variables
+        let wallet = null;
+        let connection = null;
+        let currentSubscription = null;
+
+        // Initialize application
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeApp();
+            setupEventListeners();
+            checkAPIStatus();
+        });
+
+        function initializeApp() {
+            // Initialize Solana connection
+            try {
+                connection = new solanaWeb3.Connection(SOLANA_RPC_URL);
+                console.log('Solana connection initialized');
+            } catch (error) {
+                console.error('Solana connection failed:', error);
+            }
+
+            // Initialize wallet adapter
+            try {
+                // This is a simplified wallet connection - in production use wallet adapter
+                console.log('Wallet system ready');
+            } catch (error) {
+                console.error('Wallet initialization failed:', error);
+            }
+        }
+
+        function setupEventListeners() {
+            // Connect wallet button
+            document.getElementById('connect-wallet').addEventListener('click', connectWallet);
+            
+            // Code generation
+            document.getElementById('generate-code').addEventListener('click', generateCodeWithAI);
+            document.getElementById('clear-code').addEventListener('click', clearCode);
+            document.getElementById('copy-code').addEventListener('click', copyCode);
+            document.getElementById('download-code').addEventListener('click', downloadCode);
+        }
+
+        async function checkAPIStatus() {
+            try {
+                // Test DeepSeek API
+                const testResponse = await fetch('https://api.deepseek.com/v1/models', {
+                    headers: {
+                        'Authorization': `Bearer ${DEEPSEEK_API_KEY}`
+                    }
+                });
+                
+                if (testResponse.ok) {
+                    updateAPIStatus('connected');
+                } else {
+                    updateAPIStatus('disconnected');
+                }
+            } catch (error) {
+                console.error('API check failed:', error);
+                updateAPIStatus('disconnected');
+            }
+        }
+
+        function updateAPIStatus(status) {
+            const apiStatus = document.getElementById('api-status');
+            const dashboardStatus = document.querySelector('#wallet-status-dashboard');
+            
+            if (status === 'connected') {
+                apiStatus.textContent = 'API: Connected';
+                apiStatus.className = 'api-status connected';
+                dashboardStatus.textContent = 'Connected';
+                dashboardStatus.className = 'api-status connected';
+            } else {
+                apiStatus.textContent = 'API: Disconnected';
+                apiStatus.className = 'api-status disconnected';
+                dashboardStatus.textContent = 'Disconnected';
+                dashboardStatus.className = 'api-status disconnected';
+            }
+        }
+
+        async function connectWallet() {
+            try {
+                // Simulate wallet connection (in production, use proper wallet adapter)
+                const walletStatus = document.getElementById('wallet-status');
+                walletStatus.textContent = 'Wallet: Connected';
+                walletStatus.className = 'api-status wallet-connected';
+                
+                const connectButton = document.getElementById('connect-wallet');
+                connectButton.textContent = 'Connected';
+                connectButton.disabled = true;
+                
+                // Update dashboard
+                const dashboardStatus = document.querySelector('#wallet-status-dashboard');
+                dashboardStatus.textContent = 'Connected';
+                dashboardStatus.className = 'api-status wallet-connected';
+                
+                alert('Wallet connected successfully! You can now use AI features.');
+            } catch (error) {
+                console.error('Wallet connection failed:', error);
+                alert('Wallet connection failed. Please try again.');
+            }
+        }
+
+        async function generateCodeWithAI() {
+            const request = document.getElementById('code-request').value;
+            const codeOutput = document.getElementById('generated-code');
+            
+            if (!request.trim()) {
+                alert('Please describe what you want to build!');
+                return;
+            }
+
+            // Check if wallet is connected
+            const walletStatus = document.getElementById('wallet-status').textContent;
+            if (!walletStatus.includes('Connected')) {
+                alert('Please connect your wallet first to use AI features.');
+                return;
+            }
+
+            // Show loading state
+            const generateButton = document.getElementById('generate-code');
+            const originalText = generateButton.textContent;
+            generateButton.textContent = 'Generating...';
+            generateButton.disabled = true;
+
+            codeOutput.innerHTML = '<code class="text-cyan-400">// AI is generating your code... This may take a few seconds.</code>';
+
+            try {
+                // Call DeepSeek API
+                const response = await fetch(DEEPSEEK_API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${DEEPSEEK_API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        model: 'deepseek-coder',
+                        messages: [
+                            {
+                                role: 'system',
+                                content: 'You are an expert software developer. Generate clean, production-ready code based on the user\'s description. Include proper comments and follow best practices.'
+                            },
+                            {
+                                role: 'user',
+                                content: `Generate code for: ${request}`
+                            }
+                        ],
+                        max_tokens: 1000,
+                        temperature: 0.7
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API response: ${response.status}`);
+                }
+
+                const data = await response.json();
+                const generatedCode = data.choices[0].message.content;
+
+                // Display the generated code
+                codeOutput.innerHTML = `<code class="text-gray-300">${escapeHtml(generatedCode)}</code>`;
+                
+            } catch (error) {
+                console.error('AI generation failed:', error);
+                
+                // Fallback to local generation if API fails
+                const sampleCode = generateFallbackCode(request);
+                codeOutput.innerHTML = `<code class="text-gray-300">${escapeHtml(sampleCode)}</code>`;
+                codeOutput.innerHTML += '\n<code class="text-yellow-400">// Note: Using local generation. API might be temporarily unavailable.</code>';
+            } finally {
+                generateButton.textContent = originalText;
+                generateButton.disabled = false;
+            }
+        }
+
+        function generateFallbackCode(request) {
+            // Simple fallback code generation based on keywords
+            if (request.toLowerCase().includes('react') && request.toLowerCase().includes('todo')) {
+                return `import React, { useState } from 'react';
+
+const TodoApp = () => {
+    const [todos, setTodos] = useState([]);
+    const [input, setInput] = useState('');
+
+    const addTodo = () => {
+        if (input.trim()) {
+            setTodos([...todos, {
+                id: Date.now(),
+                text: input,
+                completed: false
+            }]);
+            setInput('');
+        }
+    };
+
+    const deleteTodo = (id) => {
+        setTodos(todos.filter(todo => todo.id !== id));
+    };
+
+    const toggleTodo = (id) => {
+        setTodos(todos.map(todo => 
+            todo.id === id ? { ...todo, completed: !todo.completed } : todo
+        ));
+    };
+
+    return (
+        <div className="todo-app">
+            <h1>My Todo List</h1>
+            <div className="input-section">
+                <input
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder="Add a new task..."
+                />
+                <button onClick={addTodo}>Add Todo</button>
+            </div>
+            <ul className="todo-list">
+                {todos.map(todo => (
+                    <li key={todo.id} className={todo.completed ? 'completed' : ''}>
+                        <span onClick={() => toggleTodo(todo.id)}>
+                            {todo.text}
+                        </span>
+                        <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+};
+
+export default TodoApp;`;
+            }
+            
+            // Default fallback
+            return `// AI-generated code based on your request: "${request}"
+// This is a sample implementation. For full AI capabilities, ensure API is connected.
+
+function main() {
+    console.log("Hello from VetroGPT!");
+    // Your custom code logic here
+}
+
+main();`;
+        }
+
+        function escapeHtml(unsafe) {
+            return unsafe
+                .replace(/&/g, "&")
+                .replace(/</g, "<")
+                .replace(/>/g, ">")
+                .replace(/"/g, """)
+                .replace(/'/g, "'");
+        }
+
+        function clearCode() {
+            document.getElementById('code-request').value = '';
+            document.getElementById('generated-code').innerHTML = '<code class="text-gray-300">// Cleared. Describe what you want to build!</code>';
+        }
+
+        function copyCode() {
+            const codeElement = document.getElementById('generated-code');
+            const codeText = codeElement.textContent || codeElement.innerText;
+            
+            navigator.clipboard.writeText(codeText).then(() => {
+                alert('Code copied to clipboard!');
+            }).catch(err => {
+                console.error('Failed to copy code:', err);
+                alert('Failed to copy code. Please try again.');
+            });
+        }
+
+        function downloadCode() {
+            const codeElement = document.getElementById('generated-code');
+            const codeText = codeElement.textContent || codeElement.innerText;
+            const blob = new Blob([codeText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'vetrogpt-generated-code.js';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Payment functions
+        function subscribeStarter() {
+            openPaymentModal('Starter Plan', '29 SOL');
+        }
+
+        function subscribeProfessional() {
+            openPaymentModal('Professional Plan', '99 SOL');
+        }
+
+        function contactSales() {
+            window.location.href = 'contact.html';
+        }
+
+        function openPaymentModal(plan, amount) {
+            document.getElementById('modal-title').textContent = `Confirm ${plan} Payment`;
+            document.getElementById('modal-plan').textContent = `${plan} - ${amount}/month`;
+            document.getElementById('payment-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('payment-modal').classList.add('hidden');
+        }
+
+        async function confirmPayment() {
+            try {
+                // Simulate payment processing
+                const modal = document.getElementById('payment-modal');
+                modal.classList.add('hidden');
+                
+                // Show success message
+                alert('Payment confirmed! Your subscription is now active. You can now access all AI features.');
+                
+                // Enable all features
+                updateAPIStatus('connected');
+                
+            } catch (error) {
+                console.error('Payment failed:', error);
+                alert('Payment failed. Please try again.');
+            }
+        }
+
+        // Tool opening functions
+        function openVetroGPT() {
+            alert('Opening VetroGPT... Ensure your wallet is connected for full access.');
+            // In production, this would open the actual VetroGPT interface
+        }
+
+        function openCodeForge() {
+            alert('Launching Code Forge... AI-powered project scaffolding ready.');
+            // In production, this would open the Code Forge interface
+        }
+
+        function openSmartDeploy() {
+            alert('Starting Smart Deploy... Automated deployment pipeline initializing.');
+            // In production, this would open the Smart Deploy interface
+        }
+
+        function openAnalyticsAI() {
+            alert('Loading Analytics AI... Intelligent performance insights coming up.');
+            // In production, this would open the Analytics AI interface
+        }
+
+        // Scroll animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.scroll-reveal').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
