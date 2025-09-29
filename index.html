@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiFi Manager</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>WiFi Password Manager</h1>
+            <p>Kelola informasi WiFi yang tersimpan</p>
+        </header>
+
+        <div class="search-section">
+            <input type="text" id="searchInput" placeholder="Cari nama WiFi...">
+            <button onclick="searchWiFi()">Cari</button>
+        </div>
+
+        <div class="wifi-list" id="wifiList">
+            <!-- WiFi networks will be displayed here -->
+        </div>
+
+        <div class="add-section">
+            <h3>Tambah Network Baru</h3>
+            <form id="addWiFiForm">
+                <input type="text" id="networkName" placeholder="Nama WiFi" required>
+                <input type="password" id="networkPassword" placeholder="Password" required>
+                <input type="text" id="networkSecurity" placeholder="Tipe Keamanan (WPA2/WEP)">
+                <button type="submit">Tambah</button>
+            </form>
+        </div>
+
+        <div class="export-section">
+            <button onclick="exportData()">Export Data</button>
+            <button onclick="importData()">Import Data</button>
+            <input type="file" id="fileInput" accept=".json" style="display: none;">
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
