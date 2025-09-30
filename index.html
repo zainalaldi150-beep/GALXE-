@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pump Clone</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>Pump</h1>
+            </div>
+            <nav class="nav-menu">
+                <button class="btn-primary" onclick="showCreateModal()">Create coin</button>
+                <div class="search-container">
+                    <input type="text" placeholder="Search" class="search-input" id="searchInput">
+                    <i class="fas fa-search"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Trending Section -->
+            <section class="trending-section">
+                <h2>Now trending</h2>
+                <div class="trending-grid" id="trendingGrid">
+                    <!-- Trending coins will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Controls -->
+            <div class="controls">
+                <div class="toggle-group">
+                    <label>Show animations:</label>
+                    <button class="toggle-btn active" data-toggle="animations">on</button>
+                    <button class="toggle-btn" data-toggle="animations">off</button>
+                </div>
+                <div class="toggle-group">
+                    <label>Include nsfw:</label>
+                    <button class="toggle-btn active" data-toggle="nsfw">on</button>
+                    <button class="toggle-btn" data-toggle="nsfw">off</button>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="page-btn" onclick="prevPage()">[ &lt;&lt; ]</button>
+                <span class="page-number" id="currentPage">1</span>
+                <button class="page-btn" onclick="nextPage()">[ &gt;&gt; ]</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; pump.fun 2025</p>
+            <div class="footer-links">
+                <a href="#privacy">Privacy policy</a> |
+                <a href="#terms">Terms of service</a> |
+                <a href="#fees">Fees</a> |
+                <a href="#revenue">Revenue</a> |
+                <a href="#tech">Tech updates</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Create Coin Modal -->
+    <div class="modal" id="createModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCreateModal()">&times;</span>
+            <h2>Create New Coin</h2>
+            <form id="createCoinForm">
+                <div class="form-group">
+                    <label>Coin Name:</label>
+                    <input type="text" id="coinName" required>
+                </div>
+                <div class="form-group">
+                    <label>Symbol:</label>
+                    <input type="text" id="coinSymbol" required>
+                </div>
+                <div class="form-group">
+                    <label>Description:</label>
+                    <textarea id="coinDescription" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Image URL:</label>
+                    <input type="url" id="coinImage">
+                </div>
+                <button type="submit" class="btn-primary">Create Coin</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
