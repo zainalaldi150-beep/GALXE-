@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BEERS -- The Gold Of The Trenches</title>
+  <meta name="description" content="BEERS is a digital reflection of the oldest safe asset, made for degen. The BEERS of the Trenches." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --bg: #0b0b0f;
+      --bg2: #0f1117;
+      --text: #f6f6f7;
+      --muted: #a7aab3;
+      --accent: #f0c24b;
+      --accent-2: #ffd977;
+      --card: #13151c;
+      --border: #252836;
+      --ring: rgba(240,194,75,0.35);
+    }
+
+    /* Smooth scroll global */
+    html { scroll-behavior: smooth; }
+
+    .gold-gradient {
+      background: radial-gradient(120% 120% at 50% 0%, var(--accent) 0%, #b88927 35%, #4a3915 70%, #1b1406 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .gold-shine { position: relative; overflow: hidden; }
+    .gold-shine::after {
+      content: "";
+      position: absolute; top: -200%; left: -200%;
+      width: 200%; height: 200%;
+      background: conic-gradient(from 0deg, rgba(255,255,255,0.0), rgba(255,255,255,0.12), rgba(255,255,255,0.0));
+      transform: rotate(0deg); animation: spin 6s linear infinite; pointer-events: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .btn { display: inline-flex; align-items: center; justify-content: center; border-radius: 9999px; padding: 0.75rem 1.25rem; font-size: 0.875rem; font-weight: 600; transition: all 0.2s; cursor: pointer; }
+    .btn:active { transform: scale(0.98); }
+    .btn-gold {
+      background: linear-gradient(180deg, var(--accent), #c89b35);
+      color: #1b1406;
+      box-shadow: 0 10px 24px rgba(240,194,75,0.2), inset 0 1px 0 rgba(255,255,255,0.25);
+    }
+    .btn-gold:hover { filter: brightness(1.06); box-shadow: 0 14px 28px rgba(240,194,75,0.28), inset 0 1px 0 rgba(255,255,255,0.35); }
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+    }
+    .btn-outline:hover { border-color: #3a3f52; background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)); }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+    .glass {
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+      border: 1px solid var(--border);
+      backdrop-filter: blur(6px);
+      border-radius: 16px;
+    }
+    .dotted {
+      background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.06) 1px, transparent 0);
+      background-size: 16px 16px;
+      mask-image: linear-gradient(to bottom, black, rgba(0,0,0,0.4));
+    }
+
+    .split-text { writing-mode: vertical-rl; text-orientation: mixed; letter-spacing: 0.15em; }
+
+    .marquee { position: relative; overflow: hidden; white-space: nowrap; }
+    .marquee-track { display: inline-block; will-change: transform; animation: marquee 18s linear infinite; }
+    @keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+
+    .dots::after { content: " "; animation: dots 1.2s steps(3, end) infinite; }
+    @keyframes dots { 0% { content: ""; } 33% { content: "."; } 66% { content: ".."; } 100% { content: "..."; } }
+
+    @media (max-width: 640px) { .hero-title { font-size: 44px; line-height: 1.05; } .hero-sub { font-size: 14px; } }
+    @media (min-width: 641px) { .hero-title { font-size: 80px; line-height: 0.98; } .hero-sub { font-size: 16px; } }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      border: 1px solid var(--border); border-radius: 9999px;
+      padding: 6px 10px; background: rgba(255,255,255,0.02);
+      font-size: 12px; line-height: 1; color: var(--muted);
+    }
+
+    /* Utility for focus ring */
+    .focus-ring:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      box-shadow: 0 0 0 6px var(--ring);
+    }
+
+    /* Scroll progress bar */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), #ffdb85);
+      box-shadow: 0 0 12px rgba(240,194,75,0.6);
+      z-index: 60;
+      transition: width 0.15s linear;
+    }
+
+    /* Reveal on scroll animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px) scale(0.98);
+      transition: opacity 0.7s cubic-bezier(.22,.61,.36,1), transform 0.7s cubic-bezier(.22,.61,.36,1);
+      will-change: opacity, transform;
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Parallax gentle for background glows */
+    .parallax {
+      transform: translate3d(0, var(--pY, 0px), 0) scale(1.02);
+      transition: transform 0.12s linear;
+      will-change: transform;
+    }
+
+    /* Marquee subtle hover cue */
+    .marquee::before, .marquee::after {
+      content: "";
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 40px;
+      pointer-events: none;
+    }
+    .marquee::before {
+      left: 0;
+      background: linear-gradient(to right, rgba(11,11,15,1), rgba(11,11,15,0));
+    }
+    .marquee::after {
+      right: 0;
+      background: linear-gradient(to left, rgba(11,11,15,1), rgba(11,11,15,0));
+    }
+  </style>
+</head>
+<body class="bg-[var(--bg)] text-[var(--text)] antialiased">
+  <!-- Scroll progress -->
+  <div id="scrollProgress" class="scroll-progress" aria-hidden="true"></div>
+
+  <div class="fixed inset-0 -z-10" aria-hidden="true">
+    <div class="absolute inset-0 bg-[radial-gradient(90%_60%_at_50%_0%,#1a1d29_0%,#0b0b0f_65%)]"></div>
+    <div class="absolute inset-x-0 top-0 h-64 dotted opacity-30"></div>
+    <div class="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full blur-3xl parallax" id="glow1" style="background: radial-gradient(circle, rgba(240,194,75,0.14), rgba(240,194,75,0));"></div>
+    <div class="absolute -bottom-40 -right-40 w-[420px] h-[420px] rounded-full blur-3xl parallax" id="glow2" style="background: radial-gradient(circle, rgba(255,217,119,0.10), rgba(255,217,119,0));"></div>
+  </div>
+
+  <header class="sticky top-0 z-50" role="banner">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6">
+      <div class="mt-4 flex items-center justify-between rounded-2xl border border-[var(--border)]/80 bg-[var(--bg2)]/70 px-4 py-3 backdrop-blur-md">
+        <a href="#top" class="flex items-center gap-3 focus-ring" aria-label="Beranda BEERS">
+          <!-- Emblem -->
+          <img src="https://private-user-images.githubusercontent.com/234824571/496318409-67b06a93-9a76-4b04-b8b6-123af802b311.jpg?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTkzNDQ4MDMsIm5iZiI6MTc1OTM0NDUwMywicGF0aCI6Ii8yMzQ4MjQ1NzEvNDk2MzE4NDA5LTY3YjA2YTkzLTlhNzYtNGIwNC1iOGI2LTEyM2FmODAyYjMxMS5qcGc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUxMDAxJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MTAwMVQxODQ4MjNaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0yZjViNDExNjE0ODI1ZGU4MGJkNzVmNGUyZDliN2MwYTJmMTBjNjc5MWEyYTE2ODc0OGZhNmZjMDY3OWQ0NGU1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.wKr8AzUqaobpsPwHW5cB7Pl5QsQ8m7dYgSmGjexpz-M" alt="BEERS" class="h-10 w-10 rounded-lg" />
+          <div class="text-lg font-extrabold tracking-wide"><span class="gold-gradient">BEERS</span></div>
+        </a>
+        <nav class="hidden md:flex items-center gap-2" aria-label="Utama">
+          <a href="#about" class="btn btn-outline focus-ring">About</a>
+          <a href="#community" class="btn btn-outline focus-ring">Community</a>
+          <a href="#buy" class="btn btn-outline focus-ring">Buy</a>
+        </nav>
+        <div class="flex items-center gap-2">
+          <a href="https://x.com/bootymclain" target="_blank" rel="noopener" class="btn btn-gold focus-ring" aria-label="Official X Account">Official X Account</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="relative">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16 lg:py-24">
+        <div class="grid grid-cols-1 lg:grid-cols-[auto,1fr,auto] gap-8 items-start">
+          <div class="hidden lg:flex flex-col items-center gap-4 reveal">
+            <div class="split-text text-sm text-[var(--muted)]">BEERSitustandardinternasionaluntukasetfisikgold.</div>
+          </div>
+
+          <div class="flex flex-col items-center text-center">
+            <h1 class="hero-title font-extrabold gold-gradient gold-shine reveal">BEERS</h1>
+            <p class="hero-sub mt-4 max-w-2xl text-[var(--muted)] reveal" style="transition-delay:120ms;">
+              BEERS adalah refleksi digital dari aset aman tertua, ditempa untuk para degen. The Gold Of The Trenches.
+            </p>
+
+            <div class="mt-6 flex flex-wrap items-center justify-center gap-3 reveal" style="transition-delay:200ms;">
+              <a href="https://dexscreener.com/solana/Gxwy8yjgsPbFyHCvSxf3K2dL598VWP6S4tNBk6qE22ZS" target="_blank" rel="noopener" class="btn btn-gold focus-ring">Buy $BEERS</a>
+              <a href="https://x.com/i/communities/1973247905936056514" target="_blank" rel="noopener" class="btn btn-outline focus-ring">Join X Community</a>
+            </div>
+
+            <div class="mt-10 grid w-full grid-cols-1 sm:grid-cols-3 gap-4">
+              <div class="card p-5 text-center reveal">
+                <div class="text-xs uppercase tracking-wider text-[var(--muted)]">Token Data</div>
+                <div id="tokenData" class="mt-2 text-sm">Loading token data<span class="dots"></span></div>
+              </div>
+              <div class="card p-5 text-center reveal" style="transition-delay:100ms;">
+                <div class="text-xs uppercase tracking-wider text-[var(--muted)]">Liquidity</div>
+                <div id="liquidityData" class="mt-2 text-sm">Loading token data<span class="dots"></span></div>
+              </div>
+              <div class="card p-5 text-center reveal" style="transition-delay:180ms;">
+                <div class="text-xs uppercase tracking-wider text-[var(--muted)]">Holders</div>
+                <div id="holdersData" class="mt-2 text-sm">Loading token data<span class="dots"></span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hidden lg:flex flex-col items-center gap-4 reveal">
+            <div class="split-text text-sm text-[var(--muted)]">ThisistheGoldOfTheTrenches.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="marquee border-y border-[var(--border)] bg-[var(--bg2)] py-3" aria-hidden="true">
+        <div class="marquee-track">
+          <span class="mx-6 text-sm md:text-base">This is the Gold Of The Trenches. Minted 2 years ago, stayed undiscovered... until today.</span>
+          <span class="mx-6 text-sm md:text-base">The OG Gold on Pump Fun, THE Gold of Crypto today made the big move.</span>
+          <span class="mx-6 text-sm md:text-base">They stole the real gold. Now it's ours.</span>
+          <span class="mx-6 text-sm md:text-base">Buy $BEERS</span>
+          <span class="mx-6 text-sm md:text-base">This is the Gold Of The Trenches. Minted 2 years ago, stayed undiscovered... until today.</span>
+          <span class="mx-6 text-sm md:text-base">The OG Gold on Pump Fun, THE Gold of Crypto today made the big move.</span>
+          <span class="mx-6 text-sm md:text-base">They stole the real gold. Now it's ours.</span>
+          <span class="mx-6 text-sm md:text-base">Buy $BEERS</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="relative">
+      <div class="mx-auto max-w-5xl px-4 sm:px-6 py-12 sm:py-16">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="card p-6 reveal">
+            <h2 class="text-2xl font-bold gold-gradient">The Gold Of The Trenches</h2>
+            <p class="mt-4 text-[var(--muted)] leading-relaxed">
+              Mereka mencuri emas yang nyata. Selama puluhan tahun, para pejabat bersetelan dan bankir menguras Afrika dan Global South,
+              menimbun lebih dari 80% emas dunia di brankas pribadi mereka sementara negara-negara tetap miskin.
+            </p>
+            <p class="mt-4 text-[var(--muted)] leading-relaxed">
+              Sekarang sudah cukup. BEERS bukan permainan mereka, ini milik kita. Ini adalah emas parit, ditempa dalam kode, dimiliki oleh orang banyak.
+              Reward kreator bukan untuk Lambo; tapi untuk buyback, likuiditas tebal, dan membeli emas nyata melalui tokenisasi.
+            </p>
+            <p class="mt-4 text-[var(--muted)] leading-relaxed">
+              Mereka tak bisa mengatur pasar ini, tak bisa memborong semuanya. Ini OG gold of crypto -- lahir dari amarah, dibangun untuk kebebasan,
+              dan datang untuk menantang tatanan lama.
+            </p>
+            <div class="mt-6 flex gap-3">
+              <a href="https://dexscreener.com/solana/Gxwy8yjgsPbFyHCvSxf3K2dL598VWP6S4tNBk6qE22ZS" target="_blank" rel="noopener" class="btn btn-gold focus-ring">Buy $BEERS</a>
+              <a href="https://x.com/i/communities/1973247905936056514" target="_blank" rel="noopener" class="btn btn-outline focus-ring">Join X Community</a>
+            </div>
+          </div>
+          <div class="glass p-6 reveal" style="transition-delay:120ms;">
+            <div class="text-sm uppercase tracking-wider text-[var(--muted)]">BEERS Standard</div>
+            <h3 class="mt-2 text-xl font-semibold">Kode Internasional untuk Aset Fisik</h3>
+            <p class="mt-3 text-[var(--muted)]">
+              Simbol BEERS merefleksikan inspirasi dari standar kode emas internasional,
+              memadukan tradisi dengan teknologi, menciptakan aset digital yang berakar pada nilai nyata.
+            </p>
+
+            <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="card p-4 reveal"><div class="text-xs text-[var(--muted)]">Likuiditas</div><div class="mt-1 font-semibold">Thick Liquidity</div></div>
+              <div class="card p-4 reveal" style="transition-delay:80ms;"><div class="text-xs text-[var(--muted)]">Buybacks</div><div class="mt-1 font-semibold">Sustainable</div></div>
+              <div class="card p-4 reveal" style="transition-delay:140ms;"><div class="text-xs text-[var(--muted)]">Tokenisasi</div><div class="mt-1 font-semibold">Real Gold</div></div>
+              <div class="card p-4 reveal" style="transition-delay:200ms;"><div class="text-xs text-[var(--muted)]">Kepemilikan</div><div class="mt-1 font-semibold">Owned by the People</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 rounded-2xl border border-[var(--border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0))] p-6 text-center reveal">
+          <div class="text-sm uppercase tracking-widest text-[var(--muted)]">OG Statement</div>
+          <div class="mt-2 text-2xl md:text-3xl font-bold gold-gradient">The OG Gold on Pump Fun, THE Gold of Crypto today made the big move.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="buy" class="relative">
+      <div class="mx-auto max-w-5xl px-4 sm:px-6 py-12 sm:py-16">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="card p-6 md:col-span-2 reveal">
+            <h3 class="text-xl font-bold">Buy $BEERS</h3>
+            <p class="mt-2 text-[var(--muted)]">Pilih DEX favorit Anda untuk memulai.</p>
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <a href="https://dexscreener.com/solana/gxwy8yjgspbfyhcvsxf3k2dl598vwp6s4tnbk6qe22zs" target="_blank" rel="noopener" class="btn btn-gold w-full focus-ring">Dexscreener</a>
+              <a href="https://jup.ag/swap/SOL-So11111111111111111111111111111111111111112?inputMint=So11111111111111111111111111111111111111112" target="_blank" rel="noopener" class="btn btn-gold w-full focus-ring">Jupiter</a>
+              <a href="https://raydium.io" target="_blank" rel="noopener" class="btn btn-gold w-full focus-ring">Raydium</a>
+            </div>
+            <div class="mt-6 text-xs text-[var(--muted)]">
+              Catatan: Pastikan kontrak/pair benar sebelum membeli. Tautan di atas dapat diganti dengan link resmi BEERS.
+            </div>
+            <div class="mt-4 flex flex-wrap items-center gap-2">
+              <span class="badge">
+                <span class="inline-block h-2 w-2 rounded-full" style="background: var(--accent);"></span>
+                Pair: <span id="pairFull" class="font-mono">Gxwy8yjgsPbFyHCvSxf3K2dL598VWP6S4tNBk6qE22ZS</span> (Solana)
+              </span>
+              <button id="copyPair" class="btn btn-outline focus-ring text-xs" type="button" aria-label="Copy pair address">Copy</button>
+              <span id="copyNote" class="text-xs text-[var(--muted)] hidden">Copied!</span>
+            </div>
+          </div>
+          <div class="card p-6 reveal" style="transition-delay:120ms;">
+            <div class="text-sm uppercase tracking-wider text-[var(--muted)]">Live Status</div>
+            <div id="live1" class="mt-2 text-sm">Loading token data<span class="dots"></span></div>
+            <div id="live2" class="mt-2 text-sm">Loading token data<span class="dots"></span></div>
+            <div id="live3" class="mt-2 text-sm">Loading token data<span class="dots"></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="community" class="relative">
+      <div class="mx-auto max-w-5xl px-4 sm:px-6 py-12 sm:py-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="glass p-6 reveal">
+            <h3 class="text-xl font-bold">Join X Community</h3>
+            <p class="mt-2 text-[var(--muted)]">
+              Bergabung dengan komunitas untuk update, alpha, dan kolaborasi.
+            </p>
+            <div class="mt-4 flex flex-wrap gap-3">
+              <a class="btn btn-gold focus-ring" href="https://x.com/bootymclain" target="_blank" rel="noopener">Follow on X</a>
+              <a class="btn btn-outline focus-ring" href="https://x.com/i/communities/1973247905936056514" target="_blank" rel="noopener">Community Chat</a>
+            </div>
+          </div>
+          <div class="card p-6 reveal" style="transition-delay:120ms;">
+            <div class="text-sm uppercase tracking-wider text-[var(--muted)]">Announcements</div>
+            <ul class="mt-3 space-y-2 text-sm">
+              <li class="flex items-center gap-2">
+                <span class="h-2 w-2 rounded-full" style="background: var(--accent);"></span>
+                Minted 2 years ago, stayed undiscovered... until today.
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="h-2 w-2 rounded-full" style="background: var(--accent);"></span>
+                OG gold of crypto -- built for freedom.
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="h-2 w-2 rounded-full" style="background: var(--accent);"></span>
+                Buybacks, liquidity, and real gold tokenization.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-[var(--border)]" role="contentinfo">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 py-10">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="h-8 w-8 rounded-lg bg-gradient-to-br from-yellow-400 to-amber-700 shadow-inner" aria-hidden="true"></div>
+          <div class="font-extrabold tracking-wide gold-gradient">BEERS</div>
+        </div>
+        <div class="text-xs text-[var(--muted)]">
+          © <span id="year"></span> BEERS. All rights reserved.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const PAIR_ADDRESS = "Gxwy8yjgsPbFyHCvSxf3K2dL598VWP6S4tNBk6qE22ZS";
+    const DEXSCREENER_URL = `https://api.dexscreener.com/latest/dex/pairs/solana/${PAIR_ADDRESS}`;
+
+    const el = {
+      tokenData: document.getElementById('tokenData'),
+      liquidityData: document.getElementById('liquidityData'),
+      holdersData: document.getElementById('holdersData'),
+      live1: document.getElementById('live1'),
+      live2: document.getElementById('live2'),
+      live3: document.getElementById('live3'),
+    };
+
+    function n(v, opts = {}) {
+      const { max = 2, compact = true, currency = false } = opts;
+      const val = (typeof v === 'string') ? Number(v) : v;
+      if (val === null || val === undefined || Number.isNaN(val)) return '--';
+      try {
+        if (currency) {
+          return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: max }).format(val);
+        }
+        if (compact) {
+          return new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: max }).format(val);
+        }
+        return new Intl.NumberFormat('en-US', { maximumFractionDigits: max }).format(val);
+      } catch {
+        return String(val);
+      }
+    }
+
+    function pct(v, max=2) {
+      const val = (typeof v === 'string') ? Number(v) : v;
+      if (val === undefined || val === null || isNaN(val)) return '--';
+      const sign = val > 0 ? '+' : '';
+      return `${sign}${val.toFixed(max)}%`;
+    }
+
+    function setError(msg) {
+      const m = msg || 'Gagal memuat data. Coba lagi.';
+      el.tokenData.innerHTML = `<span class="text-red-300">${m}</span>`;
+      el.liquidityData.innerHTML = `<span class="text-red-300">${m}</span>`;
+      el.holdersData.innerHTML = `<span class="text-red-300">${m}</span>`;
+      el.live1.textContent = m;
+      el.live2.textContent = 'Periksa koneksi atau API rate limit.';
+      el.live3.innerHTML = `<button id="retry" class="btn btn-outline mt-1">Retry</button>`;
+      const r = document.getElementById('retry');
+      if (r) r.addEventListener('click', fetchPair, { once: true });
+    }
+
+    function withTimeout(promise, ms = 10000) {
+      return Promise.race([
+        promise,
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Request timeout')), ms))
+      ]);
+    }
+
+    async function fetchPair() {
+      try {
+        [el.tokenData, el.liquidityData, el.holdersData, el.live1, el.live2, el.live3].forEach(d => {
+          d.innerHTML = 'Loading token data<span class="dots"></span>';
+        });
+
+        const res = await withTimeout(fetch(DEXSCREENER_URL, { cache: 'no-store' }), 12000);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+
+        const pair = (data && data.pairs && data.pairs[0]) ? data.pairs[0] : null;
+        if (!pair) throw new Error('Pair tidak ditemukan');
+
+        const priceUsd = pair.priceUsd ? parseFloat(pair.priceUsd) : null;
+        const fdv = pair.fdv ? Number(pair.fdv) : null;
+        const mcap = pair.marketCap ? Number(pair.marketCap) : (fdv || null);
+
+        const liqUsd = pair.liquidity && pair.liquidity.usd ? Number(pair.liquidity.usd) : null;
+        const vol24h = pair.volume && pair.volume.h24 ? Number(pair.volume.h24) : null;
+        const txCount24h = (pair.txns && pair.txns.h24) ? Number((pair.txns.h24.buys || 0) + (pair.txns.h24.sells || 0)) : null;
+
+        const change24h = (pair.priceChange && pair.priceChange.h24 !== undefined) ? Number(pair.priceChange.h24) : null;
+        const baseToken = pair.baseToken || {};
+
+        const changeClass = change24h>0?'text-emerald-400':(change24h<0?'text-rose-400':'text-[var(--muted)]');
+
+        el.tokenData.innerHTML = `
+          <div class="space-y-1">
+            <div><span class="text-[var(--muted)]">Price:</span> <span class="font-semibold">${n(priceUsd, {currency:true, max:6})}</span> <span class="${changeClass} text-xs ml-1">${change24h!==null ? pct(change24h,2) : ''}</span></div>
+            <div><span class="text-[var(--muted)]">FDV:</span> <span class="font-semibold">${n(fdv, {currency:true})}</span></div>
+            <div><span class="text-[var(--muted)]">MCap:</span> <span class="font-semibold">${n(mcap, {currency:true})}</span></div>
+            <div class="text-xs text-[var(--muted)] break-all">Base: ${baseToken.symbol || ''}</div>
+          </div>
+        `;
+
+        el.liquidityData.innerHTML = `
+          <div class="space-y-1">
+            <div><span class="text-[var(--muted)]">Pool Liquidity:</span> <span class="font-semibold">${n(liqUsd, {currency:true})}</span></div>
+            <div><span class="text-[var(--muted)]">24h Volume:</span> <span class="font-semibold">${n(vol24h, {currency:true})}</span></div>
+            <div><span class="text-[var(--muted)]">24h Tx:</span> <span class="font-semibold">${n(txCount24h, {compact:false})}</span></div>
+          </div>
+        `;
+
+        const dexsUrl = `https://dexscreener.com/solana/${PAIR_ADDRESS}`;
+        el.holdersData.innerHTML = `
+          <div class="space-y-1">
+            <div><span class="text-[var(--muted)]">Holders:</span> <span class="font-semibold">N/A</span></div>
+            <div class="text-xs text-[var(--muted)]">Gunakan explorer Solana (mis. Solscan) untuk metrik holders.</div>
+            <a class="text-xs underline text-[var(--accent-2)]" href="${dexsUrl}" target="_blank" rel="noopener">Lihat di Dexscreener</a>
+          </div>
+        `;
+
+        el.live1.innerHTML = `<span class="text-[var(--muted)]">Status:</span> <span class="font-semibold text-emerald-300">Live</span>`;
+        el.live2.innerHTML = `<span class="text-[var(--muted)]">Pair:</span> <span class="font-mono text-xs">${PAIR_ADDRESS.slice(0,8)}...</span>`;
+        el.live3.innerHTML = `<span class="text-[var(--muted)]">24h Change:</span> <span class="font-semibold ${change24h>0?'text-emerald-400':change24h<0?'text-rose-400':'text-[var(--text)]'}">${change24h!==null ? pct(change24h,2) : '--'}</span>`;
+      } catch (e) {
+        setError(e?.message || 'Error');
+      }
+    }
+
+    // Copy pair to clipboard
+    const copyBtn = document.getElementById('copyPair');
+    const copyNote = document.getElementById('copyNote');
+    copyBtn?.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(PAIR_ADDRESS);
+        copyNote?.classList.remove('hidden');
+        copyNote.textContent = 'Copied!';
+        setTimeout(() => copyNote?.classList.add('hidden'), 1500);
+      } catch {
+        copyNote?.classList.remove('hidden');
+        copyNote.textContent = 'Copy failed';
+        setTimeout(() => copyNote?.classList.add('hidden'), 1500);
+      }
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+    fetchPair();
+    setInterval(fetchPair, 60000);
+
+    /* ===== Scroll Animations ===== */
+
+    // Scroll progress bar
+    const sp = document.getElementById('scrollProgress');
+    const onScrollProgress = () => {
+      const h = document.documentElement;
+      const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight);
+      sp.style.width = (scrolled * 100).toFixed(2) + '%';
+    };
+    document.addEventListener('scroll', onScrollProgress, { passive: true });
+    onScrollProgress();
+
+    // Reveal-on-scroll using IntersectionObserver
+    const revealEls = Array.from(document.querySelectorAll('.reveal'));
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          // unobserve after reveal for performance
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.14, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => io.observe(el));
+
+    // Gentle parallax for background glows
+    const glow1 = document.getElementById('glow1');
+    const glow2 = document.getElementById('glow2');
+    let lastY = window.scrollY;
+    let ticking = false;
+    function parallaxTick() {
+      const y = window.scrollY;
+      const delta = y - lastY;
+      lastY = y;
+      // subtle movement
+      const p1 = (y * 0.04);
+      const p2 = -(y * 0.03);
+      glow1 && glow1.style.setProperty('--pY', p1 + 'px');
+      glow2 && glow2.style.setProperty('--pY', p2 + 'px');
+      ticking = false;
+    }
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(parallaxTick);
+        ticking = true;
+      }
+    }, { passive: true });
+    parallaxTick();
+
+    // Optional: reduce motion respect
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    function applyReducedMotion(e) {
+      const reduce = e.matches;
+      document.documentElement.style.setProperty('--motion-mult', reduce ? '0' : '1');
+      if (reduce) {
+        // Stop marquee animation and parallax if user prefers reduced motion
+        const track = document.querySelector('.marquee-track');
+        if (track) track.style.animation = 'none';
+        window.removeEventListener('scroll', onScrollProgress);
+      }
+    }
+    mq.addEventListener?.('change', applyReducedMotion);
+    applyReducedMotion(mq);
+  </script>
+</body>
+</html>
